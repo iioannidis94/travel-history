@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Travel History</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- html2canvas for PNG export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0f1923;
+      color: #e0e6f0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    #topbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: #162030;
+      border-bottom: 1px solid #2a3a50;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      z-index: 1000;
+    }
+
+    #topbar h1 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #7ec8e3;
+      white-space: nowrap;
+      margin-right: 6px;
+    }
+
+    /* search wrapper */
+    #search-wrapper {
+      position: relative;
+      flex: 1;
+      min-width: 220px;
+      max-width: 420px;
+    }
+
+    #search-input {
+      width: 100%;
+      padding: 7px 36px 7px 12px;
+      border-radius: 20px;
+      border: 1px solid #2a3a50;
+      background: #0f1923;
+      color: #e0e6f0;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+    #search-input:focus { border-color: #7ec8e3; }
+
+    #search-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7ec8e3;
+      pointer-events: none;
+      font-size: 0.85rem;
+    }
+
+    #autocomplete-list {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: #162030;
+      border: 1px solid #2a3a50;
+      border-radius: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      z-index: 9999;
+      box-shadow: 0 6px 24px rgba(0,0,0,.5);
+    }
+    #autocomplete-list div {
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #autocomplete-list div:hover,
+    #autocomplete-list div.active { background: #1e3248; }
+    #autocomplete-list div .tag {
+      font-size: 0.72rem;
+      background: #2a3a50;
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: #7ec8e3;
+    }
+    #autocomplete-list div .visited-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      flex-shrink: 0;
+    }
+
+    /* buttons */
+    .btn {
+      padding: 7px 13px;
+      border-radius: 18px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: filter 0.15s, transform 0.1s;
+    }
+    .btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-green  { background: #22c55e; color: #fff; }
+    .btn-blue   { background: #3b82f6; color: #fff; }
+    .btn-yellow { background: #f59e0b; color: #fff; }
+    .btn-red    { background: #ef4444; color: #fff; }
+    .btn-teal   { background: #0d9488; color: #fff; }
+
+    /* stats badge */
+    #stats {
+      display: flex;
+      gap: 10px;
+      font-size: 0.82rem;
+      color: #a0b4c8;
+      white-space: nowrap;
+    }
+    #stats span strong { color: #7ec8e3; }
+
+    /* ── MAP ── */
+    #map {
+      flex: 1;
+      z-index: 1;
+    }
+
+    /* Leaflet popup style */
+    .leaflet-popup-content-wrapper {
+      background: #162030;
+      color: #e0e6f0;
+      border: 1px solid #2a3a50;
+      border-radius: 10px;
+    }
+    .leaflet-popup-tip { background: #162030; }
+    .popup-title { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+    .popup-btn {
+      display: inline-block;
+      margin-top: 6px;
+      margin-right: 4px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .popup-btn-add    { background: #22c55e; color: #fff; }
+    .popup-btn-remove { background: #ef4444; color: #fff; }
+
+    /* ── LEGEND ── */
+    #legend {
+      position: absolute;
+      bottom: 26px;
+      left: 12px;
+      background: rgba(22,32,48,.92);
+      border: 1px solid #2a3a50;
+      border-radius: 10px;
+      padding: 10px 14px;
+      z-index: 800;
+      font-size: 0.8rem;
+      line-height: 1.8;
+    }
+    #legend .row { display: flex; align-items: center; gap: 8px; }
+    #legend .swatch {
+      width: 14px; height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ── SIDE PANEL ── */
+    #panel {
+      position: absolute;
+      top: 56px;
+      right: 0;
+      width: 280px;
+      bottom: 0;
+      background: rgba(15,25,35,.96);
+      border-left: 1px solid #2a3a50;
+      z-index: 800;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    #panel.open { transform: translateX(0); }
+    #panel-toggle {
+      position: absolute;
+      top: 66px;
+      right: 0;
+      z-index: 810;
+      background: #162030;
+      border: 1px solid #2a3a50;
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      padding: 8px 6px;
+      cursor: pointer;
+      color: #7ec8e3;
+      font-size: 1rem;
+      writing-mode: vertical-lr;
+      transition: background 0.2s;
+    }
+    #panel-toggle:hover { background: #1e3248; }
+
+    #panel h2 {
+      padding: 12px 14px 8px;
+      font-size: 0.95rem;
+      color: #7ec8e3;
+      border-bottom: 1px solid #2a3a50;
+    }
+
+    #panel-list {
+      overflow-y: auto;
+      flex: 1;
+      padding: 6px 0;
+    }
+    #panel-list .item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      font-size: 0.83rem;
+      border-bottom: 1px solid #1e2e3e;
+    }
+    #panel-list .item:last-child { border-bottom: none; }
+    #panel-list .item .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    #panel-list .item .name { flex: 1; }
+    #panel-list .item .type-badge {
+      font-size: 0.68rem;
+      background: #2a3a50;
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: #7ec8e3;
+    }
+    #panel-list .item .remove-btn {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 2px 4px;
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f1923; }
+    ::-webkit-scrollbar-thumb { background: #2a3a50; border-radius: 3px; }
+
+    /* toast */
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: #22c55e;
+      color: #fff;
+      padding: 9px 20px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      z-index: 9999;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* hidden file input */
+    #file-import { display: none; }
+
+    /* export overlay */
+    #export-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      z-index: 9998;
+      align-items: center;
+      justify-content: center;
+    }
+    #export-overlay.show { display: flex; }
+    #export-box {
+      background: #162030;
+      border: 1px solid #2a3a50;
+      border-radius: 14px;
+      padding: 20px;
+      max-width: 340px;
+      width: 90%;
+      text-align: center;
+    }
+    #export-box h3 { color: #7ec8e3; margin-bottom: 10px; }
+    #export-box p { font-size: 0.85rem; color: #a0b4c8; margin-bottom: 16px; }
+    #export-preview {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      display: none;
+    }
+    .export-btns { display: flex; gap: 10px; justify-content: center; }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <h1>✈️ Travel History</h1>
+
+  <div id="search-wrapper">
+    <input id="search-input" type="text" placeholder="Search country or city…" autocomplete="off" />
+    <span id="search-icon">🔍</span>
+    <div id="autocomplete-list" style="display:none;"></div>
+  </div>
+
+  <div id="stats">
+    <span>🌍 <strong id="stat-countries">0</strong> countries</span>
+    <span>🏙️ <strong id="stat-cities">0</strong> cities</span>
+  </div>
+
+  <button class="btn btn-yellow" onclick="exportJSON()">⬇ Export JSON</button>
+  <button class="btn btn-blue" onclick="document.getElementById('file-import').click()">⬆ Import JSON</button>
+  <button class="btn btn-teal" onclick="openExportPNG()">🖼 Export PNG</button>
+  <button class="btn btn-red" onclick="clearAll()">🗑 Clear All</button>
+  <input type="file" id="file-import" accept=".json" onchange="importJSON(event)" />
+</div>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<!-- SIDE PANEL TOGGLE -->
+<button id="panel-toggle" onclick="togglePanel()" title="Toggle visited list">📋 Visited</button>
+
+<!-- SIDE PANEL -->
+<div id="panel">
+  <h2>Visited Places</h2>
+  <div id="panel-list"></div>
+</div>
+
+<!-- LEGEND -->
+<div id="legend">
+  <div class="row"><div class="swatch" style="background:#3b82f6;"></div> Visited Country</div>
+  <div class="row"><div class="swatch" style="background:#f59e0b;border-radius:50%;"></div> Visited City</div>
+  <div class="row"><div class="swatch" style="background:#1e3248;"></div> Unvisited</div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- EXPORT OVERLAY -->
+<div id="export-overlay">
+  <div id="export-box">
+    <h3>Export Map as PNG</h3>
+    <p>Capture the current map view as a PNG image you can use as a wallpaper.</p>
+    <img id="export-preview" alt="Map preview" />
+    <div class="export-btns">
+      <button class="btn btn-teal" id="capture-btn" onclick="captureMap()">📸 Capture</button>
+      <button class="btn btn-green" id="download-btn" onclick="downloadPNG()" style="display:none;">💾 Download</button>
+      <button class="btn btn-red" onclick="closeExport()">✕ Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   DATA
+   ===================================================================== */
+
+// Travel data: { countries: Set<string>, cities: Map<cityName, {lat,lng,country}> }
+let visitedCountries = new Set();
+let visitedCities    = new Map();  // key = "City, Country"
+
+/* =====================================================================
+   GEODATA  (countries GeoJSON + cities list)
+   We load countries from a public CDN and embed a curated city list.
+   ===================================================================== */
+
+const CITIES = [
+  // Europe
+  {name:"Athens",country:"Greece",lat:37.9838,lng:23.7275},
+  {name:"Thessaloniki",country:"Greece",lat:40.6401,lng:22.9444},
+  {name:"Patras",country:"Greece",lat:38.2466,lng:21.7346},
+  {name:"Heraklion",country:"Greece",lat:35.3387,lng:25.1442},
+  {name:"Paris",country:"France",lat:48.8566,lng:2.3522},
+  {name:"Lyon",country:"France",lat:45.7640,lng:4.8357},
+  {name:"Marseille",country:"France",lat:43.2965,lng:5.3698},
+  {name:"Nice",country:"France",lat:43.7102,lng:7.2620},
+  {name:"London",country:"United Kingdom",lat:51.5074,lng:-0.1278},
+  {name:"Edinburgh",country:"United Kingdom",lat:55.9533,lng:-3.1883},
+  {name:"Manchester",country:"United Kingdom",lat:53.4808,lng:-2.2426},
+  {name:"Berlin",country:"Germany",lat:52.5200,lng:13.4050},
+  {name:"Munich",country:"Germany",lat:48.1351,lng:11.5820},
+  {name:"Hamburg",country:"Germany",lat:53.5753,lng:10.0153},
+  {name:"Frankfurt",country:"Germany",lat:50.1109,lng:8.6821},
+  {name:"Rome",country:"Italy",lat:41.9028,lng:12.4964},
+  {name:"Milan",country:"Italy",lat:45.4642,lng:9.1900},
+  {name:"Venice",country:"Italy",lat:45.4408,lng:12.3155},
+  {name:"Florence",country:"Italy",lat:43.7696,lng:11.2558},
+  {name:"Naples",country:"Italy",lat:40.8518,lng:14.2681},
+  {name:"Madrid",country:"Spain",lat:40.4168,lng:-3.7038},
+  {name:"Barcelona",country:"Spain",lat:41.3851,lng:2.1734},
+  {name:"Seville",country:"Spain",lat:37.3891,lng:-5.9845},
+  {name:"Valencia",country:"Spain",lat:39.4699,lng:-0.3763},
+  {name:"Amsterdam",country:"Netherlands",lat:52.3676,lng:4.9041},
+  {name:"Rotterdam",country:"Netherlands",lat:51.9244,lng:4.4777},
+  {name:"Brussels",country:"Belgium",lat:50.8503,lng:4.3517},
+  {name:"Vienna",country:"Austria",lat:48.2082,lng:16.3738},
+  {name:"Salzburg",country:"Austria",lat:47.8095,lng:13.0550},
+  {name:"Zurich",country:"Switzerland",lat:47.3769,lng:8.5417},
+  {name:"Geneva",country:"Switzerland",lat:46.2044,lng:6.1432},
+  {name:"Lisbon",country:"Portugal",lat:38.7169,lng:-9.1395},
+  {name:"Porto",country:"Portugal",lat:41.1579,lng:-8.6291},
+  {name:"Prague",country:"Czech Republic",lat:50.0755,lng:14.4378},
+  {name:"Budapest",country:"Hungary",lat:47.4979,lng:19.0402},
+  {name:"Warsaw",country:"Poland",lat:52.2297,lng:21.0122},
+  {name:"Krakow",country:"Poland",lat:50.0647,lng:19.9450},
+  {name:"Stockholm",country:"Sweden",lat:59.3293,lng:18.0686},
+  {name:"Copenhagen",country:"Denmark",lat:55.6761,lng:12.5683},
+  {name:"Oslo",country:"Norway",lat:59.9139,lng:10.7522},
+  {name:"Helsinki",country:"Finland",lat:60.1699,lng:24.9384},
+  {name:"Dublin",country:"Ireland",lat:53.3498,lng:-6.2603},
+  {name:"Reykjavik",country:"Iceland",lat:64.1466,lng:-21.9426},
+  {name:"Bucharest",country:"Romania",lat:44.4268,lng:26.1025},
+  {name:"Sofia",country:"Bulgaria",lat:42.6977,lng:23.3219},
+  {name:"Belgrade",country:"Serbia",lat:44.7866,lng:20.4489},
+  {name:"Zagreb",country:"Croatia",lat:45.8150,lng:15.9819},
+  {name:"Dubrovnik",country:"Croatia",lat:42.6507,lng:18.0944},
+  {name:"Split",country:"Croatia",lat:43.5081,lng:16.4402},
+  {name:"Sarajevo",country:"Bosnia and Herzegovina",lat:43.8563,lng:18.4131},
+  {name:"Skopje",country:"North Macedonia",lat:41.9973,lng:21.4280},
+  {name:"Tirana",country:"Albania",lat:41.3275,lng:19.8189},
+  {name:"Podgorica",country:"Montenegro",lat:42.4304,lng:19.2594},
+  {name:"Valletta",country:"Malta",lat:35.8997,lng:14.5147},
+  {name:"Nicosia",country:"Cyprus",lat:35.1856,lng:33.3823},
+  {name:"Luxembourg City",country:"Luxembourg",lat:49.6116,lng:6.1319},
+  {name:"Riga",country:"Latvia",lat:56.9496,lng:24.1052},
+  {name:"Tallinn",country:"Estonia",lat:59.4370,lng:24.7536},
+  {name:"Vilnius",country:"Lithuania",lat:54.6872,lng:25.2797},
+  {name:"Kiev",country:"Ukraine",lat:50.4501,lng:30.5234},
+  {name:"Minsk",country:"Belarus",lat:53.9045,lng:27.5615},
+  {name:"Moscow",country:"Russia",lat:55.7558,lng:37.6173},
+  {name:"Saint Petersburg",country:"Russia",lat:59.9311,lng:30.3609},
+  // Asia
+  {name:"Istanbul",country:"Turkey",lat:41.0082,lng:28.9784},
+  {name:"Ankara",country:"Turkey",lat:39.9334,lng:32.8597},
+  {name:"Antalya",country:"Turkey",lat:36.8969,lng:30.7133},
+  {name:"Tokyo",country:"Japan",lat:35.6762,lng:139.6503},
+  {name:"Osaka",country:"Japan",lat:34.6937,lng:135.5022},
+  {name:"Kyoto",country:"Japan",lat:35.0116,lng:135.7681},
+  {name:"Beijing",country:"China",lat:39.9042,lng:116.4074},
+  {name:"Shanghai",country:"China",lat:31.2304,lng:121.4737},
+  {name:"Hong Kong",country:"China",lat:22.3193,lng:114.1694},
+  {name:"Seoul",country:"South Korea",lat:37.5665,lng:126.9780},
+  {name:"Bangkok",country:"Thailand",lat:13.7563,lng:100.5018},
+  {name:"Phuket",country:"Thailand",lat:7.9519,lng:98.3381},
+  {name:"Singapore",country:"Singapore",lat:1.3521,lng:103.8198},
+  {name:"Kuala Lumpur",country:"Malaysia",lat:3.1390,lng:101.6869},
+  {name:"Jakarta",country:"Indonesia",lat:-6.2088,lng:106.8456},
+  {name:"Bali",country:"Indonesia",lat:-8.3405,lng:115.0920},
+  {name:"Manila",country:"Philippines",lat:14.5995,lng:120.9842},
+  {name:"Hanoi",country:"Vietnam",lat:21.0285,lng:105.8542},
+  {name:"Ho Chi Minh City",country:"Vietnam",lat:10.8231,lng:106.6297},
+  {name:"Mumbai",country:"India",lat:19.0760,lng:72.8777},
+  {name:"Delhi",country:"India",lat:28.6139,lng:77.2090},
+  {name:"Bangalore",country:"India",lat:12.9716,lng:77.5946},
+  {name:"Goa",country:"India",lat:15.2993,lng:74.1240},
+  {name:"Dubai",country:"United Arab Emirates",lat:25.2048,lng:55.2708},
+  {name:"Abu Dhabi",country:"United Arab Emirates",lat:24.4539,lng:54.3773},
+  {name:"Riyadh",country:"Saudi Arabia",lat:24.7136,lng:46.6753},
+  {name:"Tel Aviv",country:"Israel",lat:32.0853,lng:34.7818},
+  {name:"Jerusalem",country:"Israel",lat:31.7683,lng:35.2137},
+  {name:"Amman",country:"Jordan",lat:31.9539,lng:35.9106},
+  {name:"Beirut",country:"Lebanon",lat:33.8938,lng:35.5018},
+  {name:"Cairo",country:"Egypt",lat:30.0444,lng:31.2357},
+  {name:"Colombo",country:"Sri Lanka",lat:6.9271,lng:79.8612},
+  {name:"Kathmandu",country:"Nepal",lat:27.7172,lng:85.3240},
+  {name:"Dhaka",country:"Bangladesh",lat:23.8103,lng:90.4125},
+  {name:"Karachi",country:"Pakistan",lat:24.8607,lng:67.0011},
+  {name:"Lahore",country:"Pakistan",lat:31.5497,lng:74.3436},
+  {name:"Islamabad",country:"Pakistan",lat:33.6844,lng:73.0479},
+  {name:"Kabul",country:"Afghanistan",lat:34.5553,lng:69.2075},
+  {name:"Tehran",country:"Iran",lat:35.6892,lng:51.3890},
+  {name:"Baghdad",country:"Iraq",lat:33.3152,lng:44.3661},
+  {name:"Muscat",country:"Oman",lat:23.5880,lng:58.3829},
+  {name:"Doha",country:"Qatar",lat:25.2854,lng:51.5310},
+  {name:"Kuwait City",country:"Kuwait",lat:29.3759,lng:47.9774},
+  {name:"Ulaanbaatar",country:"Mongolia",lat:47.8864,lng:106.9057},
+  {name:"Phnom Penh",country:"Cambodia",lat:11.5564,lng:104.9282},
+  {name:"Vientiane",country:"Laos",lat:17.9757,lng:102.6331},
+  {name:"Yangon",country:"Myanmar",lat:16.8661,lng:96.1951},
+  {name:"Naypyidaw",country:"Myanmar",lat:19.7633,lng:96.0785},
+  {name:"Bishkek",country:"Kyrgyzstan",lat:42.8746,lng:74.5698},
+  {name:"Tashkent",country:"Uzbekistan",lat:41.2995,lng:69.2401},
+  {name:"Almaty",country:"Kazakhstan",lat:43.2220,lng:76.8512},
+  {name:"Tbilisi",country:"Georgia",lat:41.6938,lng:44.8015},
+  {name:"Yerevan",country:"Armenia",lat:40.1872,lng:44.5152},
+  {name:"Baku",country:"Azerbaijan",lat:40.4093,lng:49.8671},
+  {name:"Nur-Sultan",country:"Kazakhstan",lat:51.1801,lng:71.4460},
+  // Africa
+  {name:"Nairobi",country:"Kenya",lat:-1.2921,lng:36.8219},
+  {name:"Lagos",country:"Nigeria",lat:6.5244,lng:3.3792},
+  {name:"Addis Ababa",country:"Ethiopia",lat:9.0320,lng:38.7469},
+  {name:"Dar es Salaam",country:"Tanzania",lat:-6.7924,lng:39.2083},
+  {name:"Johannesburg",country:"South Africa",lat:-26.2041,lng:28.0473},
+  {name:"Cape Town",country:"South Africa",lat:-33.9249,lng:18.4241},
+  {name:"Durban",country:"South Africa",lat:-29.8587,lng:31.0218},
+  {name:"Casablanca",country:"Morocco",lat:33.5731,lng:-7.5898},
+  {name:"Marrakech",country:"Morocco",lat:31.6295,lng:-7.9811},
+  {name:"Tunis",country:"Tunisia",lat:36.8190,lng:10.1658},
+  {name:"Algiers",country:"Algeria",lat:36.7372,lng:3.0865},
+  {name:"Accra",country:"Ghana",lat:5.6037,lng:-0.1870},
+  {name:"Dakar",country:"Senegal",lat:14.7167,lng:-17.4677},
+  {name:"Abidjan",country:"Ivory Coast",lat:5.3600,lng:-4.0083},
+  {name:"Kampala",country:"Uganda",lat:0.3476,lng:32.5825},
+  {name:"Harare",country:"Zimbabwe",lat:-17.8252,lng:31.0335},
+  {name:"Maputo",country:"Mozambique",lat:-25.9692,lng:32.5732},
+  {name:"Lusaka",country:"Zambia",lat:-15.4167,lng:28.2833},
+  {name:"Kigali",country:"Rwanda",lat:-1.9441,lng:30.0619},
+  {name:"Luanda",country:"Angola",lat:-8.8368,lng:13.2343},
+  // Americas
+  {name:"New York",country:"United States",lat:40.7128,lng:-74.0060},
+  {name:"Los Angeles",country:"United States",lat:34.0522,lng:-118.2437},
+  {name:"Chicago",country:"United States",lat:41.8781,lng:-87.6298},
+  {name:"Houston",country:"United States",lat:29.7604,lng:-95.3698},
+  {name:"Miami",country:"United States",lat:25.7617,lng:-80.1918},
+  {name:"San Francisco",country:"United States",lat:37.7749,lng:-122.4194},
+  {name:"Las Vegas",country:"United States",lat:36.1699,lng:-115.1398},
+  {name:"Seattle",country:"United States",lat:47.6062,lng:-122.3321},
+  {name:"Boston",country:"United States",lat:42.3601,lng:-71.0589},
+  {name:"Washington DC",country:"United States",lat:38.9072,lng:-77.0369},
+  {name:"Orlando",country:"United States",lat:28.5383,lng:-81.3792},
+  {name:"New Orleans",country:"United States",lat:29.9511,lng:-90.0715},
+  {name:"Denver",country:"United States",lat:39.7392,lng:-104.9903},
+  {name:"Phoenix",country:"United States",lat:33.4484,lng:-112.0740},
+  {name:"Toronto",country:"Canada",lat:43.6510,lng:-79.3470},
+  {name:"Vancouver",country:"Canada",lat:49.2827,lng:-123.1207},
+  {name:"Montreal",country:"Canada",lat:45.5017,lng:-73.5673},
+  {name:"Ottawa",country:"Canada",lat:45.4215,lng:-75.6919},
+  {name:"Calgary",country:"Canada",lat:51.0447,lng:-114.0719},
+  {name:"Mexico City",country:"Mexico",lat:19.4326,lng:-99.1332},
+  {name:"Cancun",country:"Mexico",lat:21.1619,lng:-86.8515},
+  {name:"Guadalajara",country:"Mexico",lat:20.6597,lng:-103.3496},
+  {name:"Monterrey",country:"Mexico",lat:25.6866,lng:-100.3161},
+  {name:"Havana",country:"Cuba",lat:23.1136,lng:-82.3666},
+  {name:"Panama City",country:"Panama",lat:8.9936,lng:-79.5197},
+  {name:"San José",country:"Costa Rica",lat:9.9281,lng:-84.0907},
+  {name:"Guatemala City",country:"Guatemala",lat:14.6349,lng:-90.5069},
+  {name:"Tegucigalpa",country:"Honduras",lat:14.0818,lng:-87.2068},
+  {name:"Managua",country:"Nicaragua",lat:12.1150,lng:-86.2362},
+  {name:"San Salvador",country:"El Salvador",lat:13.6929,lng:-89.2182},
+  {name:"São Paulo",country:"Brazil",lat:-23.5505,lng:-46.6333},
+  {name:"Rio de Janeiro",country:"Brazil",lat:-22.9068,lng:-43.1729},
+  {name:"Brasilia",country:"Brazil",lat:-15.7942,lng:-47.8825},
+  {name:"Salvador",country:"Brazil",lat:-12.9714,lng:-38.5014},
+  {name:"Buenos Aires",country:"Argentina",lat:-34.6037,lng:-58.3816},
+  {name:"Córdoba",country:"Argentina",lat:-31.4201,lng:-64.1888},
+  {name:"Santiago",country:"Chile",lat:-33.4489,lng:-70.6693},
+  {name:"Lima",country:"Peru",lat:-12.0464,lng:-77.0428},
+  {name:"Bogotá",country:"Colombia",lat:4.7110,lng:-74.0721},
+  {name:"Medellín",country:"Colombia",lat:6.2518,lng:-75.5636},
+  {name:"Caracas",country:"Venezuela",lat:10.4806,lng:-66.9036},
+  {name:"Quito",country:"Ecuador",lat:-0.1807,lng:-78.4678},
+  {name:"La Paz",country:"Bolivia",lat:-16.5000,lng:-68.1500},
+  {name:"Asunción",country:"Paraguay",lat:-25.2637,lng:-57.5759},
+  {name:"Montevideo",country:"Uruguay",lat:-34.9011,lng:-56.1645},
+  {name:"Georgetown",country:"Guyana",lat:6.8013,lng:-58.1551},
+  {name:"Paramaribo",country:"Suriname",lat:5.8520,lng:-55.2038},
+  {name:"Port of Spain",country:"Trinidad and Tobago",lat:10.6549,lng:-61.5019},
+  {name:"Kingston",country:"Jamaica",lat:17.9970,lng:-76.7936},
+  {name:"Santo Domingo",country:"Dominican Republic",lat:18.4861,lng:-69.9312},
+  {name:"Port-au-Prince",country:"Haiti",lat:18.5432,lng:-72.3395},
+  {name:"Nassau",country:"Bahamas",lat:25.0343,lng:-77.3963},
+  // Oceania
+  {name:"Sydney",country:"Australia",lat:-33.8688,lng:151.2093},
+  {name:"Melbourne",country:"Australia",lat:-37.8136,lng:144.9631},
+  {name:"Brisbane",country:"Australia",lat:-27.4698,lng:153.0251},
+  {name:"Perth",country:"Australia",lat:-31.9505,lng:115.8605},
+  {name:"Auckland",country:"New Zealand",lat:-36.8485,lng:174.7633},
+  {name:"Wellington",country:"New Zealand",lat:-41.2865,lng:174.7762},
+  {name:"Suva",country:"Fiji",lat:-18.1416,lng:178.4419},
+  {name:"Port Moresby",country:"Papua New Guinea",lat:-9.4438,lng:147.1803},
+  {name:"Honolulu",country:"United States",lat:21.3069,lng:-157.8583},
+];
+
+/* =====================================================================
+   MAP SETUP
+   ===================================================================== */
+
+const map = L.map('map', {
+  center: [20, 10],
+  zoom: 2,
+  minZoom: 2,
+  maxZoom: 12,
+  zoomControl: true,
+});
+
+// Dark tile layer
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://carto.com/">CartoDB</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+  subdomains: 'abcd',
+  maxZoom: 19,
+}).addTo(map);
+
+/* =====================================================================
+   COUNTRY GEOJSON LAYER
+   ===================================================================== */
+
+let geoLayer = null;
+const GEOJSON_URL = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
+
+function countryStyle(feature) {
+  const name = feature.properties.ADMIN;
+  const visited = visitedCountries.has(name);
+  return {
+    fillColor: visited ? '#3b82f6' : '#1e3248',
+    fillOpacity: visited ? 0.65 : 0.35,
+    color: visited ? '#7ec8e3' : '#2a3a50',
+    weight: visited ? 1.5 : 0.5,
+  };
+}
+
+function onEachCountry(feature, layer) {
+  const name = feature.properties.ADMIN;
+  layer.on({
+    mouseover(e) {
+      if (!visitedCountries.has(name)) {
+        e.target.setStyle({ fillOpacity: 0.55, fillColor: '#254d75' });
+      }
+    },
+    mouseout(e) {
+      geoLayer.resetStyle(e.target);
+    },
+    click(e) {
+      const visited = visitedCountries.has(name);
+      const html = `
+        <div class="popup-title">🌍 ${name}</div>
+        ${visited
+          ? `<button class="popup-btn popup-btn-remove" onclick="removeCountry('${name.replace(/'/g,"\\'")}')">✕ Remove</button>`
+          : `<button class="popup-btn popup-btn-add" onclick="addCountry('${name.replace(/'/g,"\\'")}')">✓ Mark as visited</button>`}
+      `;
+      L.popup().setLatLng(e.latlng).setContent(html).openOn(map);
+    },
+  });
+}
+
+fetch(GEOJSON_URL)
+  .then(r => r.json())
+  .then(data => {
+    geoLayer = L.geoJSON(data, {
+      style: countryStyle,
+      onEachFeature: onEachCountry,
+    }).addTo(map);
+  })
+  .catch(() => showToast('⚠️ Could not load country borders', '#ef4444'));
+
+/* =====================================================================
+   CITY MARKERS
+   ===================================================================== */
+
+const cityMarkers = new Map(); // key → Leaflet marker
+
+function createCityIcon(visited) {
+  return L.divIcon({
+    className: '',
+    html: `<div style="
+      width:${visited?12:7}px;height:${visited?12:7}px;
+      background:${visited?'#f59e0b':'#2a3a50'};
+      border:${visited?'2px solid #fff':'1px solid #3a4a5a'};
+      border-radius:50%;
+      box-shadow:${visited?'0 0 8px rgba(245,158,11,.8)':'none'};
+      transition:all .2s;
+    "></div>`,
+    iconSize: [visited?12:7, visited?12:7],
+    iconAnchor: [visited?6:3.5, visited?6:3.5],
+  });
+}
+
+function renderCityMarkers() {
+  // remove existing
+  cityMarkers.forEach(m => map.removeLayer(m));
+  cityMarkers.clear();
+
+  CITIES.forEach(city => {
+    const key = cityKey(city);
+    const visited = visitedCities.has(key);
+    const marker = L.marker([city.lat, city.lng], {
+      icon: createCityIcon(visited),
+      title: city.name,
+    });
+
+    marker.on('click', () => {
+      const v = visitedCities.has(key);
+      const html = `
+        <div class="popup-title">🏙️ ${city.name}</div>
+        <div style="font-size:.8rem;color:#a0b4c8;margin-bottom:4px;">${city.country}</div>
+        ${v
+          ? `<button class="popup-btn popup-btn-remove" onclick="removeCityByKey('${key.replace(/'/g,"\\'")}')">✕ Remove</button>`
+          : `<button class="popup-btn popup-btn-add" onclick="addCityByKey('${key.replace(/'/g,"\\'")}')">✓ Mark as visited</button>`}
+      `;
+      L.popup().setLatLng([city.lat, city.lng]).setContent(html).openOn(map);
+    });
+
+    marker.addTo(map);
+    cityMarkers.set(key, marker);
+  });
+}
+
+function cityKey(city) { return `${city.name}, ${city.country}`; }
+
+/* =====================================================================
+   ADD / REMOVE
+   ===================================================================== */
+
+function addCountry(name) {
+  visitedCountries.add(name);
+  map.closePopup();
+  refreshMap();
+  saveStorage();
+  updateStats();
+  renderPanel();
+  showToast(`✈️ ${name} added!`);
+}
+function removeCountry(name) {
+  visitedCountries.delete(name);
+  map.closePopup();
+  refreshMap();
+  saveStorage();
+  updateStats();
+  renderPanel();
+  showToast(`🗑 ${name} removed`, '#ef4444');
+}
+function addCityByKey(key) {
+  const city = CITIES.find(c => cityKey(c) === key);
+  if (!city) return;
+  visitedCities.set(key, city);
+  map.closePopup();
+  refreshMap();
+  saveStorage();
+  updateStats();
+  renderPanel();
+  showToast(`✈️ ${city.name} added!`);
+}
+function removeCityByKey(key) {
+  visitedCities.delete(key);
+  map.closePopup();
+  refreshMap();
+  saveStorage();
+  updateStats();
+  renderPanel();
+  showToast(`🗑 Removed`, '#ef4444');
+}
+
+function refreshMap() {
+  if (geoLayer) geoLayer.setStyle(countryStyle);
+  renderCityMarkers();
+}
+
+/* =====================================================================
+   STATS
+   ===================================================================== */
+
+function updateStats() {
+  document.getElementById('stat-countries').textContent = visitedCountries.size;
+  document.getElementById('stat-cities').textContent    = visitedCities.size;
+}
+
+/* =====================================================================
+   SEARCH / AUTOCOMPLETE
+   ===================================================================== */
+
+const searchInput = document.getElementById('search-input');
+const acList      = document.getElementById('autocomplete-list');
+let acIndex = -1;
+
+function buildSearchData() {
+  const items = [];
+  CITIES.forEach(c => items.push({ label: `${c.name}, ${c.country}`, type: 'city', data: c }));
+  return items;
+}
+const SEARCH_DATA = buildSearchData();
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  acIndex = -1;
+  if (!q) { hideAC(); return; }
+
+  const matches = SEARCH_DATA.filter(item =>
+    item.label.toLowerCase().includes(q)
+  ).slice(0, 12);
+
+  if (!matches.length) { hideAC(); return; }
+
+  acList.innerHTML = '';
+  matches.forEach((item, i) => {
+    const div = document.createElement('div');
+    const visited = visitedCities.has(cityKey(item.data)) || visitedCountries.has(item.data.country);
+    div.innerHTML = `
+      ${visited ? '<div class="visited-dot"></div>' : ''}
+      <span>${item.label}</span>
+      <span class="tag">${item.type}</span>
+    `;
+    div.addEventListener('click', () => selectSearchItem(item));
+    acList.appendChild(div);
+  });
+  acList.style.display = 'block';
+});
+
+searchInput.addEventListener('keydown', e => {
+  const divs = acList.querySelectorAll('div');
+  if (e.key === 'ArrowDown') { acIndex = Math.min(acIndex+1, divs.length-1); highlight(divs); e.preventDefault(); }
+  else if (e.key === 'ArrowUp') { acIndex = Math.max(acIndex-1, 0); highlight(divs); e.preventDefault(); }
+  else if (e.key === 'Enter' && acIndex >= 0) { divs[acIndex].click(); }
+  else if (e.key === 'Escape') hideAC();
+});
+
+function highlight(divs) {
+  divs.forEach((d,i) => d.classList.toggle('active', i === acIndex));
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#search-wrapper')) hideAC();
+});
+
+function hideAC() { acList.style.display = 'none'; acList.innerHTML = ''; }
+
+function selectSearchItem(item) {
+  hideAC();
+  searchInput.value = '';
+  if (item.type === 'city') {
+    const c = item.data;
+    map.setView([c.lat, c.lng], 8, { animate: true });
+    const key = cityKey(c);
+    const visited = visitedCities.has(key);
+    const html = `
+      <div class="popup-title">🏙️ ${c.name}</div>
+      <div style="font-size:.8rem;color:#a0b4c8;margin-bottom:4px;">${c.country}</div>
+      ${visited
+        ? `<button class="popup-btn popup-btn-remove" onclick="removeCityByKey('${key.replace(/'/g,"\\'")}')">✕ Remove</button>`
+        : `<button class="popup-btn popup-btn-add" onclick="addCityByKey('${key.replace(/'/g,"\\'")}')">✓ Mark as visited</button>`}
+    `;
+    setTimeout(() => L.popup().setLatLng([c.lat, c.lng]).setContent(html).openOn(map), 400);
+  }
+}
+
+/* =====================================================================
+   SIDE PANEL
+   ===================================================================== */
+
+let panelOpen = false;
+function togglePanel() {
+  panelOpen = !panelOpen;
+  document.getElementById('panel').classList.toggle('open', panelOpen);
+  document.getElementById('panel-toggle').textContent = panelOpen ? '✕ Close' : '📋 Visited';
+}
+
+function renderPanel() {
+  const list = document.getElementById('panel-list');
+  list.innerHTML = '';
+
+  // countries
+  [...visitedCountries].sort().forEach(name => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `
+      <div class="dot" style="background:#3b82f6;"></div>
+      <span class="name">${name}</span>
+      <span class="type-badge">country</span>
+      <button class="remove-btn" onclick="removeCountry('${name.replace(/'/g,"\\'")}')">✕</button>
+    `;
+    list.appendChild(div);
+  });
+
+  // cities
+  [...visitedCities.keys()].sort().forEach(key => {
+    const city = visitedCities.get(key);
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.innerHTML = `
+      <div class="dot" style="background:#f59e0b;"></div>
+      <span class="name">${city.name}</span>
+      <span class="type-badge">city</span>
+      <button class="remove-btn" onclick="removeCityByKey('${key.replace(/'/g,"\\'")}')">✕</button>
+    `;
+    list.appendChild(div);
+  });
+
+  if (!list.children.length) {
+    list.innerHTML = '<div style="padding:14px;color:#a0b4c8;font-size:.82rem;">No visited places yet. Click on the map or search!</div>';
+  }
+}
+
+/* =====================================================================
+   LOCAL STORAGE
+   ===================================================================== */
+
+function saveStorage() {
+  localStorage.setItem('travel_countries', JSON.stringify([...visitedCountries]));
+  localStorage.setItem('travel_cities',    JSON.stringify([...visitedCities.entries()]));
+}
+
+function loadStorage() {
+  try {
+    const c = localStorage.getItem('travel_countries');
+    const ci = localStorage.getItem('travel_cities');
+    if (c)  visitedCountries = new Set(JSON.parse(c));
+    if (ci) visitedCities    = new Map(JSON.parse(ci));
+  } catch(e) {}
+}
+
+/* =====================================================================
+   IMPORT / EXPORT JSON
+   ===================================================================== */
+
+function exportJSON() {
+  const data = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    countries: [...visitedCountries],
+    cities: [...visitedCities.values()],
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = `travel-history-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('📦 JSON exported!');
+}
+
+function importJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.countries) data.countries.forEach(c => visitedCountries.add(c));
+      if (data.cities)    data.cities.forEach(c    => visitedCities.set(cityKey(c), c));
+      refreshMap();
+      saveStorage();
+      updateStats();
+      renderPanel();
+      showToast(`✅ Imported ${data.countries?.length||0} countries & ${data.cities?.length||0} cities`);
+    } catch(err) {
+      showToast('❌ Invalid JSON file', '#ef4444');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+/* =====================================================================
+   EXPORT PNG
+   ===================================================================== */
+
+let capturedDataURL = null;
+
+function openExportPNG() {
+  capturedDataURL = null;
+  document.getElementById('export-preview').style.display = 'none';
+  document.getElementById('download-btn').style.display   = 'none';
+  document.getElementById('capture-btn').style.display    = '';
+  document.getElementById('export-overlay').classList.add('show');
+}
+
+function closeExport() {
+  document.getElementById('export-overlay').classList.remove('show');
+}
+
+function captureMap() {
+  showToast('📸 Capturing…', '#3b82f6');
+  const mapEl = document.getElementById('map');
+  html2canvas(mapEl, {
+    useCORS: true,
+    allowTaint: true,
+    scale: window.devicePixelRatio || 1,
+    logging: false,
+  }).then(canvas => {
+    capturedDataURL = canvas.toDataURL('image/png');
+    const preview   = document.getElementById('export-preview');
+    preview.src      = capturedDataURL;
+    preview.style.display = 'block';
+    document.getElementById('download-btn').style.display = '';
+    document.getElementById('capture-btn').style.display  = 'none';
+    showToast('✅ Ready to download!');
+  }).catch(() => {
+    showToast('❌ Capture failed. Try scrolling the map first.', '#ef4444');
+  });
+}
+
+function downloadPNG() {
+  if (!capturedDataURL) return;
+  const a = document.createElement('a');
+  a.href = capturedDataURL;
+  a.download = `travel-map-${new Date().toISOString().slice(0,10)}.png`;
+  a.click();
+  showToast('💾 PNG downloaded!');
+}
+
+/* =====================================================================
+   CLEAR ALL
+   ===================================================================== */
+
+function clearAll() {
+  if (!confirm('Remove all visited countries and cities?')) return;
+  visitedCountries.clear();
+  visitedCities.clear();
+  refreshMap();
+  saveStorage();
+  updateStats();
+  renderPanel();
+  showToast('🗑 All cleared', '#ef4444');
+}
+
+/* =====================================================================
+   TOAST
+   ===================================================================== */
+
+let toastTimer = null;
+function showToast(msg, color = '#22c55e') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = color;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* =====================================================================
+   INIT
+   ===================================================================== */
+
+loadStorage();
+renderCityMarkers();
+updateStats();
+renderPanel();
+</script>
+</body>
+</html>
