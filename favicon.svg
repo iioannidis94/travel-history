@@ -1,0 +1,8 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Σφαίρα -->
+  <circle cx="32" cy="32" r="28" fill="#162030" stroke="#7ec8e3" stroke-width="4"/>
+  <!-- Γραμμές Γης -->
+  <ellipse cx="32" cy="32" rx="28" ry="28" stroke="#7ec8e3" stroke-width="2"/>
+  <ellipse cx="32" cy="32" rx="14" ry="28" stroke="#7ec8e3" stroke-width="2"/>
+  <ellipse cx="32" cy="32" rx="28" ry="14" stroke="#7ec8e3" stroke-width="2"/>
+</svg>
