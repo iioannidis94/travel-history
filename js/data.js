@@ -822,5 +822,713 @@ const CITIES = [
   {name:"Hilo",country:"United States",lat:19.7241,lng:-155.0868},
   {name:"Kailua",country:"United States",lat:21.4022,lng:-157.7394},
 
-   //America######
+
+
+   // ================= NORTH AMERICA =================
+  // United States
+  {name:"New York",country:"United States",lat:40.7128,lng:-74.0060},
+  {name:"Los Angeles",country:"United States",lat:34.0522,lng:-118.2437},
+  {name:"Chicago",country:"United States",lat:41.8781,lng:-87.6298},
+  {name:"Houston",country:"United States",lat:29.7604,lng:-95.3698},
+  {name:"Phoenix",country:"United States",lat:33.4484,lng:-112.0740},
+  {name:"Philadelphia",country:"United States",lat:39.9526,lng:-75.1652},
+  {name:"San Antonio",country:"United States",lat:29.4241,lng:-98.4936},
+  {name:"San Diego",country:"United States",lat:32.7157,lng:-117.1611},
+  {name:"Dallas",country:"United States",lat:32.7767,lng:-96.7970},
+  {name:"San Jose",country:"United States",lat:37.3382,lng:-121.8863},
+  {name:"Austin",country:"United States",lat:30.2672,lng:-97.7431},
+  {name:"Jacksonville",country:"United States",lat:30.3322,lng:-81.6557},
+  {name:"Fort Worth",country:"United States",lat:32.7555,lng:-97.3308},
+  {name:"Columbus",country:"United States",lat:39.9612,lng:-82.9988},
+  {name:"Indianapolis",country:"United States",lat:39.7684,lng:-86.1581},
+  {name:"Charlotte",country:"United States",lat:35.2271,lng:-80.8431},
+  {name:"San Francisco",country:"United States",lat:37.7749,lng:-122.4194},
+  {name:"Seattle",country:"United States",lat:47.6062,lng:-122.3321},
+  {name:"Denver",country:"United States",lat:39.7392,lng:-104.9903},
+  {name:"Washington DC",country:"United States",lat:38.9072,lng:-77.0369},
+  {name:"Nashville",country:"United States",lat:36.1627,lng:-86.7816},
+  {name:"Oklahoma City",country:"United States",lat:35.4676,lng:-97.5164},
+  {name:"El Paso",country:"United States",lat:31.7619,lng:-106.4850},
+  {name:"Boston",country:"United States",lat:42.3601,lng:-71.0589},
+  {name:"Portland",country:"United States",lat:45.5152,lng:-122.6784},
+  {name:"Las Vegas",country:"United States",lat:36.1699,lng:-115.1398},
+  {name:"Detroit",country:"United States",lat:42.3314,lng:-83.0458},
+  {name:"Memphis",country:"United States",lat:35.1495,lng:-90.0490},
+  {name:"Louisville",country:"United States",lat:38.2527,lng:-85.7585},
+  {name:"Baltimore",country:"United States",lat:39.2904,lng:-76.6122},
+  {name:"Milwaukee",country:"United States",lat:43.0389,lng:-87.9065},
+  {name:"Albuquerque",country:"United States",lat:35.0844,lng:-106.6504},
+  {name:"Tucson",country:"United States",lat:32.2226,lng:-110.9747},
+  {name:"Fresno",country:"United States",lat:36.7378,lng:-119.7871},
+  {name:"Sacramento",country:"United States",lat:38.5816,lng:-121.4944},
+  {name:"Kansas City",country:"United States",lat:39.0997,lng:-94.5786},
+  {name:"Mesa",country:"United States",lat:33.4152,lng:-111.8315},
+  {name:"Atlanta",country:"United States",lat:33.7490,lng:-84.3880},
+  {name:"Omaha",country:"United States",lat:41.2565,lng:-95.9345},
+  {name:"Colorado Springs",country:"United States",lat:38.8339,lng:-104.8214},
+  {name:"Raleigh",country:"United States",lat:35.7796,lng:-78.6382},
+  {name:"Miami",country:"United States",lat:25.7617,lng:-80.1918},
+  {name:"Virginia Beach",country:"United States",lat:36.8529,lng:-75.9780},
+  {name:"Oakland",country:"United States",lat:37.8044,lng:-122.2712},
+  {name:"Minneapolis",country:"United States",lat:44.9778,lng:-93.2650},
+  {name:"Tulsa",country:"United States",lat:36.1540,lng:-95.9928},
+  {name:"New Orleans",country:"United States",lat:29.9511,lng:-90.0715},
+  {name:"Wichita",country:"United States",lat:37.6872,lng:-97.3301},
+  {name:"Cleveland",country:"United States",lat:41.4993,lng:-81.6944},
+  {name:"Tampa",country:"United States",lat:27.9506,lng:-82.4572},
+  {name:"Bakersfield",country:"United States",lat:35.3733,lng:-119.0187},
+  {name:"Aurora",country:"United States",lat:39.7294,lng:-104.8319},
+  {name:"Anaheim",country:"United States",lat:33.8366,lng:-117.9143},
+  {name:"Santa Ana",country:"United States",lat:33.7455,lng:-117.8677},
+  {name:"Corpus Christi",country:"United States",lat:27.8006,lng:-97.3964},
+  {name:"Riverside",country:"United States",lat:33.9806,lng:-117.3755},
+  {name:"St. Louis",country:"United States",lat:38.6270,lng:-90.1994},
+  {name:"Pittsburgh",country:"United States",lat:40.4406,lng:-79.9959},
+  {name:"Cincinnati",country:"United States",lat:39.1031,lng:-84.5120},
+  {name:"Anchorage",country:"United States",lat:61.2181,lng:-149.9003},
+  {name:"Orlando",country:"United States",lat:28.5383,lng:-81.3792},
+  {name:"Salt Lake City",country:"United States",lat:40.7608,lng:-111.8910},
+  {name:"Reno",country:"United States",lat:39.5296,lng:-119.8138},
+  {name:"Boise",country:"United States",lat:43.6150,lng:-116.2023},
+  {name:"Des Moines",country:"United States",lat:41.5868,lng:-93.6250},
+  {name:"Little Rock",country:"United States",lat:34.7465,lng:-92.2896},
+  {name:"Cheyenne",country:"United States",lat:41.1400,lng:-104.8202},
+  {name:"Fargo",country:"United States",lat:46.8772,lng:-96.7898},
+
+  // Canada
+  {name:"Toronto",country:"Canada",lat:43.6510,lng:-79.3470},
+  {name:"Montreal",country:"Canada",lat:45.5017,lng:-73.5673},
+  {name:"Vancouver",country:"Canada",lat:49.2827,lng:-123.1207},
+  {name:"Calgary",country:"Canada",lat:51.0447,lng:-114.0719},
+  {name:"Edmonton",country:"Canada",lat:53.5461,lng:-113.4938},
+  {name:"Ottawa",country:"Canada",lat:45.4215,lng:-75.6919},
+  {name:"Winnipeg",country:"Canada",lat:49.8951,lng:-97.1384},
+  {name:"Quebec City",country:"Canada",lat:46.8139,lng:-71.2080},
+  {name:"Hamilton",country:"Canada",lat:43.2557,lng:-79.8711},
+  {name:"Kitchener",country:"Canada",lat:43.4516,lng:-80.4925},
+  {name:"London",country:"Canada",lat:42.9849,lng:-81.2453},
+  {name:"Victoria",country:"Canada",lat:48.4284,lng:-123.3656},
+  {name:"Halifax",country:"Canada",lat:44.6488,lng:-63.5752},
+  {name:"Oshawa",country:"Canada",lat:43.8971,lng:-78.8658},
+  {name:"Windsor",country:"Canada",lat:42.3149,lng:-83.0364},
+  {name:"Saskatoon",country:"Canada",lat:52.1332,lng:-106.6700},
+  {name:"Regina",country:"Canada",lat:50.4452,lng:-104.6189},
+  {name:"St. John's",country:"Canada",lat:47.5615,lng:-52.7126},
+  {name:"Kelowna",country:"Canada",lat:49.8880,lng:-119.4960},
+  {name:"Barrie",country:"Canada",lat:44.3894,lng:-79.6903},
+  {name:"Sherbrooke",country:"Canada",lat:45.4010,lng:-71.8929},
+  {name:"Guelph",country:"Canada",lat:43.5467,lng:-80.2482},
+  {name:"Kingston",country:"Canada",lat:44.2312,lng:-76.4860},
+  {name:"Moncton",country:"Canada",lat:46.0878,lng:-64.7782},
+  {name:"Sudbury",country:"Canada",lat:46.4917,lng:-80.9930},
+  {name:"Yellowknife",country:"Canada",lat:62.4540,lng:-114.3718},
+  {name:"Whitehorse",country:"Canada",lat:60.7212,lng:-135.0568},
+  {name:"Iqaluit",country:"Canada",lat:63.7467,lng:-68.5170},
+
+  // Mexico
+  {name:"Mexico City",country:"Mexico",lat:19.4326,lng:-99.1332},
+  {name:"Ecatepec",country:"Mexico",lat:19.6018,lng:-99.0396},
+  {name:"Guadalajara",country:"Mexico",lat:20.6597,lng:-103.3496},
+  {name:"Puebla",country:"Mexico",lat:19.0414,lng:-98.2063},
+  {name:"Ciudad Juarez",country:"Mexico",lat:31.7352,lng:-106.4869},
+  {name:"Tijuana",country:"Mexico",lat:32.5149,lng:-117.0382},
+  {name:"Leon",country:"Mexico",lat:21.1241,lng:-101.6820},
+  {name:"Zapopan",country:"Mexico",lat:20.7225,lng:-103.3920},
+  {name:"Monterrey",country:"Mexico",lat:25.6866,lng:-100.3161},
+  {name:"Nezahualcoyotl",country:"Mexico",lat:19.4006,lng:-98.9912},
+  {name:"Chihuahua",country:"Mexico",lat:28.6329,lng:-106.0691},
+  {name:"Merida",country:"Mexico",lat:20.9674,lng:-89.6237},
+  {name:"San Luis Potosi",country:"Mexico",lat:22.1565,lng:-100.9855},
+  {name:"Aguascalientes",country:"Mexico",lat:21.8798,lng:-102.2960},
+  {name:"Hermosillo",country:"Mexico",lat:29.0892,lng:-110.9613},
+  {name:"Saltillo",country:"Mexico",lat:25.4216,lng:-100.9995},
+  {name:"Mexicali",country:"Mexico",lat:32.6245,lng:-115.4523},
+  {name:"Culiacan",country:"Mexico",lat:24.8016,lng:-107.3934},
+  {name:"Acapulco",country:"Mexico",lat:16.8531,lng:-99.8237},
+  {name:"Cancun",country:"Mexico",lat:21.1619,lng:-86.8515},
+  {name:"Queretaro",country:"Mexico",lat:20.5881,lng:-100.3899},
+  {name:"Torreon",country:"Mexico",lat:25.5428,lng:-103.4068},
+  {name:"Morelia",country:"Mexico",lat:19.7060,lng:-101.1950},
+  {name:"Reynosa",country:"Mexico",lat:26.0806,lng:-98.2883},
+  {name:"Tuxtla Gutierrez",country:"Mexico",lat:16.7569,lng:-93.1292},
+  {name:"Durango",country:"Mexico",lat:24.0277,lng:-104.6532},
+  {name:"Toluca",country:"Mexico",lat:19.2826,lng:-99.6557},
+  {name:"Veracruz",country:"Mexico",lat:19.1738,lng:-96.1342},
+  {name:"Oaxaca",country:"Mexico",lat:17.0732,lng:-96.7266},
+
+  // ================= CENTRAL AMERICA =================
+  // Guatemala
+  {name:"Guatemala City",country:"Guatemala",lat:14.6349,lng:-90.5069},
+  {name:"Mixco",country:"Guatemala",lat:14.6333,lng:-90.6000},
+  {name:"Quetzaltenango",country:"Guatemala",lat:14.8347,lng:-91.5181},
+  
+  // Belize
+  {name:"Belmopan",country:"Belize",lat:17.2510,lng:-88.7590},
+  {name:"Belize City",country:"Belize",lat:17.5046,lng:-88.1962},
+  
+  // El Salvador
+  {name:"San Salvador",country:"El Salvador",lat:13.6929,lng:-89.2182},
+  {name:"Soyapango",country:"El Salvador",lat:13.7167,lng:-89.1500},
+  {name:"Santa Ana",country:"El Salvador",lat:13.9942,lng:-89.5597},
+  
+  // Honduras
+  {name:"Tegucigalpa",country:"Honduras",lat:14.0818,lng:-87.2068},
+  {name:"San Pedro Sula",country:"Honduras",lat:15.5000,lng:-88.0333},
+  {name:"La Ceiba",country:"Honduras",lat:15.7589,lng:-86.7892},
+  
+  // Nicaragua
+  {name:"Managua",country:"Nicaragua",lat:12.1150,lng:-86.2362},
+  {name:"León",country:"Nicaragua",lat:12.4379,lng:-86.8780},
+  {name:"Granada",country:"Nicaragua",lat:11.9300,lng:-85.9560},
+  
+  // Costa Rica
+  {name:"San José",country:"Costa Rica",lat:9.9281,lng:-84.0907},
+  {name:"Alajuela",country:"Costa Rica",lat:10.0163,lng:-84.2116},
+  {name:"Cartago",country:"Costa Rica",lat:9.8667,lng:-83.9167},
+  
+  // Panama
+  {name:"Panama City",country:"Panama",lat:8.9936,lng:-79.5197},
+  {name:"San Miguelito",country:"Panama",lat:9.0333,lng:-79.5000},
+  {name:"David",country:"Panama",lat:8.4273,lng:-82.4308},
+
+  // ================= CARIBBEAN =================
+  // Cuba
+  {name:"Havana",country:"Cuba",lat:23.1136,lng:-82.3666},
+  {name:"Santiago de Cuba",country:"Cuba",lat:20.0208,lng:-75.8267},
+  {name:"Camagüey",country:"Cuba",lat:21.3838,lng:-77.9175},
+  
+  // Jamaica
+  {name:"Kingston",country:"Jamaica",lat:17.9970,lng:-76.7936},
+  {name:"Montego Bay",country:"Jamaica",lat:18.4714,lng:-77.9229},
+  
+  // Haiti
+  {name:"Port-au-Prince",country:"Haiti",lat:18.5432,lng:-72.3395},
+  {name:"Cap-Haïtien",country:"Haiti",lat:19.7596,lng:-72.1981},
+  
+  // Dominican Republic
+  {name:"Santo Domingo",country:"Dominican Republic",lat:18.4861,lng:-69.9312},
+  {name:"Santiago de los Caballeros",country:"Dominican Republic",lat:19.4517,lng:-70.6970},
+  {name:"Punta Cana",country:"Dominican Republic",lat:18.5820,lng:-68.4055},
+  
+  // Puerto Rico (US Territory)
+  {name:"San Juan",country:"Puerto Rico",lat:18.4655,lng:-66.1057},
+  {name:"Ponce",country:"Puerto Rico",lat:18.0111,lng:-66.6141},
+  
+  // Bahamas
+  {name:"Nassau",country:"Bahamas",lat:25.0343,lng:-77.3963},
+  {name:"Freeport",country:"Bahamas",lat:26.5333,lng:-78.6942},
+  
+  // Trinidad and Tobago
+  {name:"Port of Spain",country:"Trinidad and Tobago",lat:10.6549,lng:-61.5019},
+  {name:"San Fernando",country:"Trinidad and Tobago",lat:10.2833,lng:-61.4667},
+  
+  // Barbados
+  {name:"Bridgetown",country:"Barbados",lat:13.1132,lng:-59.5988},
+  
+  // Other Island Nations/Territories
+  {name:"Castries",country:"Saint Lucia",lat:14.0101,lng:-60.9875},
+  {name:"St. John's",country:"Antigua and Barbuda",lat:17.1221,lng:-61.8427},
+  {name:"Willemstad",country:"Curaçao",lat:12.1166,lng:-68.9333},
+  {name:"Oranjestad",country:"Aruba",lat:12.5186,lng:-70.0358},
+
+  // ================= SOUTH AMERICA =================
+  // Brazil
+  {name:"São Paulo",country:"Brazil",lat:-23.5505,lng:-46.6333},
+  {name:"Rio de Janeiro",country:"Brazil",lat:-22.9068,lng:-43.1729},
+  {name:"Brasília",country:"Brazil",lat:-15.7942,lng:-47.8825},
+  {name:"Salvador",country:"Brazil",lat:-12.9714,lng:-38.5014},
+  {name:"Fortaleza",country:"Brazil",lat:-3.7172,lng:-38.5433},
+  {name:"Belo Horizonte",country:"Brazil",lat:-19.9208,lng:-43.9378},
+  {name:"Manaus",country:"Brazil",lat:-3.1190,lng:-60.0217},
+  {name:"Curitiba",country:"Brazil",lat:-25.4284,lng:-49.2733},
+  {name:"Recife",country:"Brazil",lat:-8.0476,lng:-34.8770},
+  {name:"Goiânia",country:"Brazil",lat:-16.6869,lng:-49.2648},
+  {name:"Belém",country:"Brazil",lat:-1.4558,lng:-48.5044},
+  {name:"Porto Alegre",country:"Brazil",lat:-30.0346,lng:-51.2177},
+  {name:"Guarulhos",country:"Brazil",lat:-23.4628,lng:-46.5333},
+  {name:"Campinas",country:"Brazil",lat:-22.9099,lng:-47.0626},
+  {name:"São Luís",country:"Brazil",lat:-2.5297,lng:-44.3028},
+  {name:"Maceió",country:"Brazil",lat:-9.6662,lng:-35.7351},
+  {name:"Campo Grande",country:"Brazil",lat:-20.4697,lng:-54.6201},
+  {name:"Natal",country:"Brazil",lat:-5.7945,lng:-35.2110},
+  {name:"Teresina",country:"Brazil",lat:-5.0892,lng:-42.8016},
+  {name:"Florianópolis",country:"Brazil",lat:-27.5954,lng:-48.5480},
+  {name:"Vitória",country:"Brazil",lat:-20.3155,lng:-40.3128},
+  {name:"Cuiabá",country:"Brazil",lat:-15.6014,lng:-56.0979},
+  {name:"Aracaju",country:"Brazil",lat:-10.9472,lng:-37.0731},
+  {name:"João Pessoa",country:"Brazil",lat:-7.1153,lng:-34.8610},
+  {name:"Porto Velho",country:"Brazil",lat:-8.7612,lng:-63.9039},
+
+  // Argentina
+  {name:"Buenos Aires",country:"Argentina",lat:-34.6037,lng:-58.3816},
+  {name:"Córdoba",country:"Argentina",lat:-31.4201,lng:-64.1888},
+  {name:"Rosario",country:"Argentina",lat:-32.9468,lng:-60.6393},
+  {name:"Mendoza",country:"Argentina",lat:-32.8908,lng:-68.8272},
+  {name:"Tucumán",country:"Argentina",lat:-26.8241,lng:-65.2226},
+  {name:"La Plata",country:"Argentina",lat:-34.9205,lng:-57.9536},
+  {name:"Mar del Plata",country:"Argentina",lat:-38.0055,lng:-57.5426},
+  {name:"Salta",country:"Argentina",lat:-24.7821,lng:-65.4232},
+  {name:"Santa Fe",country:"Argentina",lat:-31.6333,lng:-60.7000},
+  {name:"San Juan",country:"Argentina",lat:-31.5375,lng:-68.5364},
+  {name:"Resistencia",country:"Argentina",lat:-27.4606,lng:-58.9839},
+  {name:"Neuquén",country:"Argentina",lat:-38.9516,lng:-68.0591},
+  {name:"Corrientes",country:"Argentina",lat:-27.4692,lng:-58.8306},
+  {name:"Bahía Blanca",country:"Argentina",lat:-38.7183,lng:-62.2663},
+  {name:"Ushuaia",country:"Argentina",lat:-54.8019,lng:-68.3030},
+
+  // Colombia
+  {name:"Bogotá",country:"Colombia",lat:4.7110,lng:-74.0721},
+  {name:"Medellín",country:"Colombia",lat:6.2518,lng:-75.5636},
+  {name:"Cali",country:"Colombia",lat:3.4516,lng:-76.5320},
+  {name:"Barranquilla",country:"Colombia",lat:10.9639,lng:-74.7964},
+  {name:"Cartagena",country:"Colombia",lat:10.3910,lng:-75.4794},
+  {name:"Cúcuta",country:"Colombia",lat:7.8939,lng:-72.5078},
+  {name:"Bucaramanga",country:"Colombia",lat:7.1193,lng:-73.1227},
+  {name:"Pereira",country:"Colombia",lat:4.8133,lng:-75.6961},
+  {name:"Santa Marta",country:"Colombia",lat:11.2408,lng:-74.1990},
+  {name:"Ibagué",country:"Colombia",lat:4.4389,lng:-75.2322},
+  {name:"Pasto",country:"Colombia",lat:1.2136,lng:-77.2811},
+  {name:"Manizales",country:"Colombia",lat:5.0689,lng:-75.5174},
+  {name:"Villavicencio",country:"Colombia",lat:4.1420,lng:-73.6266},
+  {name:"Valledupar",country:"Colombia",lat:10.4631,lng:-73.2532},
+  {name:"Montería",country:"Colombia",lat:8.7480,lng:-75.8814},
+
+  // Peru
+  {name:"Lima",country:"Peru",lat:-12.0464,lng:-77.0428},
+  {name:"Arequipa",country:"Peru",lat:-16.4090,lng:-71.5375},
+  {name:"Trujillo",country:"Peru",lat:-8.1091,lng:-79.0215},
+  {name:"Chiclayo",country:"Peru",lat:-6.7714,lng:-79.8409},
+  {name:"Piura",country:"Peru",lat:-5.1945,lng:-80.6328},
+  {name:"Iquitos",country:"Peru",lat:-3.7491,lng:-73.2538},
+  {name:"Cusco",country:"Peru",lat:-13.5226,lng:-71.9675},
+  {name:"Chimbote",country:"Peru",lat:-9.0853,lng:-78.5783},
+  {name:"Huancayo",country:"Peru",lat:-12.0651,lng:-75.2049},
+  {name:"Tacna",country:"Peru",lat:-18.0146,lng:-70.2536},
+
+  // Chile
+  {name:"Santiago",country:"Chile",lat:-33.4489,lng:-70.6693},
+  {name:"Antofagasta",country:"Chile",lat:-23.6500,lng:-70.4000},
+  {name:"Viña del Mar",country:"Chile",lat:-33.0245,lng:-71.5518},
+  {name:"Valparaíso",country:"Chile",lat:-33.0472,lng:-71.6127},
+  {name:"Concepción",country:"Chile",lat:-36.8201,lng:-73.0444},
+  {name:"Temuco",country:"Chile",lat:-38.7397,lng:-72.5901},
+  {name:"Iquique",country:"Chile",lat:-20.2133,lng:-70.1503},
+  {name:"Rancagua",country:"Chile",lat:-34.1708,lng:-70.7444},
+  {name:"Puerto Montt",country:"Chile",lat:-41.4693,lng:-72.9424},
+  {name:"Punta Arenas",country:"Chile",lat:-53.1500,lng:-70.9167},
+
+  // Venezuela
+  {name:"Caracas",country:"Venezuela",lat:10.4806,lng:-66.9036},
+  {name:"Maracaibo",country:"Venezuela",lat:10.6427,lng:-71.6125},
+  {name:"Valencia",country:"Venezuela",lat:10.1620,lng:-68.0077},
+  {name:"Barquisimeto",country:"Venezuela",lat:10.0678,lng:-69.3472},
+  {name:"Maracay",country:"Venezuela",lat:10.2469,lng:-67.5958},
+  {name:"Ciudad Guayana",country:"Venezuela",lat:8.3653,lng:-62.6469},
+  {name:"Barcelona",country:"Venezuela",lat:10.1363,lng:-64.6862},
+  {name:"Maturín",country:"Venezuela",lat:9.7457,lng:-63.1832},
+  {name:"San Cristóbal",country:"Venezuela",lat:7.7667,lng:-72.2333},
+  {name:"Mérida",country:"Venezuela",lat:8.5952,lng:-71.1388},
+
+  // Ecuador
+  {name:"Guayaquil",country:"Ecuador",lat:-2.1962,lng:-79.8862},
+  {name:"Quito",country:"Ecuador",lat:-0.1807,lng:-78.4678},
+  {name:"Cuenca",country:"Ecuador",lat:-2.9001,lng:-79.0059},
+  {name:"Santo Domingo",country:"Ecuador",lat:-0.2530,lng:-79.1754},
+  {name:"Machala",country:"Ecuador",lat:-3.2581,lng:-79.9554},
+  {name:"Manta",country:"Ecuador",lat:-0.9621,lng:-80.7127},
+  {name:"Loja",country:"Ecuador",lat:-3.9931,lng:-79.2042},
+
+  // Bolivia
+  {name:"Santa Cruz de la Sierra",country:"Bolivia",lat:-17.7833,lng:-63.1821},
+  {name:"El Alto",country:"Bolivia",lat:-16.5000,lng:-68.2000},
+  {name:"La Paz",country:"Bolivia",lat:-16.5000,lng:-68.1500},
+  {name:"Cochabamba",country:"Bolivia",lat:-17.3895,lng:-66.1568},
+  {name:"Oruro",country:"Bolivia",lat:-17.9667,lng:-67.1167},
+  {name:"Sucre",country:"Bolivia",lat:-19.0333,lng:-65.2627},
+
+  // Paraguay
+  {name:"Asunción",country:"Paraguay",lat:-25.2637,lng:-57.5759},
+  {name:"Ciudad del Este",country:"Paraguay",lat:-25.5097,lng:-54.6111},
+  {name:"San Lorenzo",country:"Paraguay",lat:-25.3333,lng:-57.5333},
+  {name:"Luque",country:"Paraguay",lat:-25.2667,lng:-57.4833},
+
+  // Uruguay
+  {name:"Montevideo",country:"Uruguay",lat:-34.9011,lng:-56.1645},
+  {name:"Salto",country:"Uruguay",lat:-31.3833,lng:-57.9667},
+  {name:"Ciudad de la Costa",country:"Uruguay",lat:-34.8167,lng:-55.9500},
+  {name:"Paysandú",country:"Uruguay",lat:-32.3167,lng:-58.0833},
+
+  // Guyanas
+  {name:"Georgetown",country:"Guyana",lat:6.8013,lng:-58.1551},
+  {name:"Paramaribo",country:"Suriname",lat:5.8520,lng:-55.2038},
+  {name:"Cayenne",country:"French Guiana",lat:4.9224,lng:-52.3258},
+
+   // ================= AFRICA =================
+  // Egypt
+  {name:"Cairo",country:"Egypt",lat:30.0444,lng:31.2357},
+  {name:"Alexandria",country:"Egypt",lat:31.2001,lng:29.9187},
+  {name:"Giza",country:"Egypt",lat:30.0131,lng:31.2089},
+  {name:"Shubra El-Kheima",country:"Egypt",lat:30.1286,lng:31.2422},
+  {name:"Port Said",country:"Egypt",lat:31.2653,lng:32.3019},
+  {name:"Suez",country:"Egypt",lat:29.9668,lng:32.5498},
+  {name:"Luxor",country:"Egypt",lat:25.6872,lng:32.6396},
+  {name:"Aswan",country:"Egypt",lat:24.0889,lng:32.8998},
+  {name:"Tanta",country:"Egypt",lat:30.7865,lng:31.0004},
+  {name:"Asyut",country:"Egypt",lat:27.1810,lng:31.1837},
+  {name:"Ismailia",country:"Egypt",lat:30.5965,lng:32.2715},
+  {name:"Fayyum",country:"Egypt",lat:29.3084,lng:30.8428},
+
+  // Nigeria
+  {name:"Lagos",country:"Nigeria",lat:6.5244,lng:3.3792},
+  {name:"Kano",country:"Nigeria",lat:12.0022,lng:8.5920},
+  {name:"Ibadan",country:"Nigeria",lat:7.3775,lng:3.9470},
+  {name:"Abuja",country:"Nigeria",lat:9.0765,lng:7.3986},
+  {name:"Port Harcourt",country:"Nigeria",lat:4.8156,lng:7.0498},
+  {name:"Benin City",country:"Nigeria",lat:6.3350,lng:5.6275},
+  {name:"Kaduna",country:"Nigeria",lat:10.5105,lng:7.4165},
+  {name:"Zaria",country:"Nigeria",lat:11.0855,lng:7.7199},
+  {name:"Aba",country:"Nigeria",lat:5.1066,lng:7.3667},
+  {name:"Jos",country:"Nigeria",lat:9.8965,lng:8.8583},
+  {name:"Ilorin",country:"Nigeria",lat:8.5000,lng:4.5500},
+  {name:"Enugu",country:"Nigeria",lat:6.4584,lng:7.5463},
+  {name:"Maiduguri",country:"Nigeria",lat:11.8311,lng:13.1510},
+  {name:"Sokoto",country:"Nigeria",lat:13.0609,lng:5.2390},
+  {name:"Owerri",country:"Nigeria",lat:5.4853,lng:7.0358},
+  {name:"Calabar",country:"Nigeria",lat:4.9517,lng:8.3220},
+
+  // South Africa
+  {name:"Johannesburg",country:"South Africa",lat:-26.2041,lng:28.0473},
+  {name:"Cape Town",country:"South Africa",lat:-33.9249,lng:18.4241},
+  {name:"Durban",country:"South Africa",lat:-29.8587,lng:31.0218},
+  {name:"Pretoria",country:"South Africa",lat:-25.7479,lng:28.2293},
+  {name:"Port Elizabeth",country:"South Africa",lat:-33.9608,lng:25.6022},
+  {name:"Bloemfontein",country:"South Africa",lat:-29.1141,lng:26.2208},
+  {name:"East London",country:"South Africa",lat:-33.0292,lng:27.9116},
+  {name:"Polokwane",country:"South Africa",lat:-23.9045,lng:29.4688},
+  {name:"Nelspruit",country:"South Africa",lat:-25.4753,lng:30.9853},
+  {name:"Kimberley",country:"South Africa",lat:-28.7282,lng:24.7623},
+  {name:"Pietermaritzburg",country:"South Africa",lat:-29.6006,lng:30.3794},
+  {name:"Rustenburg",country:"South Africa",lat:-25.6676,lng:27.2421},
+  {name:"Soweto",country:"South Africa",lat:-26.2678,lng:27.8585},
+  {name:"George",country:"South Africa",lat:-33.9630,lng:22.4617},
+
+  // Morocco
+  {name:"Casablanca",country:"Morocco",lat:33.5731,lng:-7.5898},
+  {name:"Rabat",country:"Morocco",lat:34.0209,lng:-6.8416},
+  {name:"Marrakech",country:"Morocco",lat:31.6295,lng:-7.9811},
+  {name:"Fes",country:"Morocco",lat:34.0331,lng:-5.0003},
+  {name:"Tangier",country:"Morocco",lat:35.7595,lng:-5.8340},
+  {name:"Agadir",country:"Morocco",lat:30.4278,lng:-9.5981},
+  {name:"Meknes",country:"Morocco",lat:33.8730,lng:-5.5407},
+  {name:"Oujda",country:"Morocco",lat:34.6814,lng:-1.9086},
+  {name:"Kenitra",country:"Morocco",lat:34.2541,lng:-6.5890},
+  {name:"Tetouan",country:"Morocco",lat:35.5721,lng:-5.3723},
+  {name:"Essaouira",country:"Morocco",lat:31.5085,lng:-9.7595},
+
+  // Algeria
+  {name:"Algiers",country:"Algeria",lat:36.7372,lng:3.0865},
+  {name:"Oran",country:"Algeria",lat:35.6987,lng:-0.6349},
+  {name:"Constantine",country:"Algeria",lat:36.3650,lng:6.6147},
+  {name:"Annaba",country:"Algeria",lat:36.9000,lng:7.7667},
+  {name:"Blida",country:"Algeria",lat:36.4700,lng:2.8277},
+  {name:"Batna",country:"Algeria",lat:35.5559,lng:6.1741},
+  {name:"Sétif",country:"Algeria",lat:36.1898,lng:5.4108},
+  {name:"Sidi Bel Abbès",country:"Algeria",lat:35.1899,lng:-0.6300},
+  {name:"Biskra",country:"Algeria",lat:34.8500,lng:5.7333},
+
+  // Kenya
+  {name:"Nairobi",country:"Kenya",lat:-1.2921,lng:36.8219},
+  {name:"Mombasa",country:"Kenya",lat:-4.0435,lng:39.6682},
+  {name:"Kisumu",country:"Kenya",lat:-0.0917,lng:34.7680},
+  {name:"Nakuru",country:"Kenya",lat:-0.3031,lng:36.0800},
+  {name:"Eldoret",country:"Kenya",lat:0.5143,lng:35.2698},
+  {name:"Thika",country:"Kenya",lat:-1.0333,lng:37.0693},
+  {name:"Malindi",country:"Kenya",lat:-3.2192,lng:40.1169},
+
+  // Ethiopia
+  {name:"Addis Ababa",country:"Ethiopia",lat:9.0320,lng:38.7469},
+  {name:"Dire Dawa",country:"Ethiopia",lat:9.5833,lng:41.8667},
+  {name:"Mekelle",country:"Ethiopia",lat:13.4967,lng:39.4753},
+  {name:"Gondar",country:"Ethiopia",lat:12.6000,lng:37.4667},
+  {name:"Awasa",country:"Ethiopia",lat:7.0504,lng:38.4768},
+  {name:"Bahir Dar",country:"Ethiopia",lat:11.5936,lng:37.3908},
+  {name:"Jimma",country:"Ethiopia",lat:7.6667,lng:36.8333},
+
+  // Tanzania
+  {name:"Dar es Salaam",country:"Tanzania",lat:-6.7924,lng:39.2083},
+  {name:"Dodoma",country:"Tanzania",lat:-6.1722,lng:35.7395},
+  {name:"Mwanza",country:"Tanzania",lat:-2.5167,lng:32.9000},
+  {name:"Arusha",country:"Tanzania",lat:-3.3667,lng:36.6833},
+  {name:"Mbeya",country:"Tanzania",lat:-8.9000,lng:33.4500},
+  {name:"Morogoro",country:"Tanzania",lat:-8.8256,lng:36.6820},
+  {name:"Tanga",country:"Tanzania",lat:-5.0667,lng:39.1000},
+  {name:"Zanzibar City",country:"Tanzania",lat:-6.1659,lng:39.1990},
+
+  // Ghana
+  {name:"Accra",country:"Ghana",lat:5.6037,lng:-0.1870},
+  {name:"Kumasi",country:"Ghana",lat:6.6885,lng:-1.6244},
+  {name:"Tamale",country:"Ghana",lat:9.4008,lng:-0.8393},
+  {name:"Sekondi-Takoradi",country:"Ghana",lat:4.8927,lng:-1.7554},
+  {name:"Ashaiman",country:"Ghana",lat:5.7005,lng:-0.0298},
+  {name:"Cape Coast",country:"Ghana",lat:5.1053,lng:-1.2466},
+  {name:"Obuasi",country:"Ghana",lat:6.2000,lng:-1.6833},
+
+  // Democratic Republic of the Congo
+  {name:"Kinshasa",country:"Democratic Republic of the Congo",lat:-4.4419,lng:15.2663},
+  {name:"Lubumbashi",country:"Democratic Republic of the Congo",lat:-11.6609,lng:27.4794},
+  {name:"Mbuji-Mayi",country:"Democratic Republic of the Congo",lat:-6.1360,lng:23.5898},
+  {name:"Kisangani",country:"Democratic Republic of the Congo",lat:0.5153,lng:25.1910},
+  {name:"Kananga",country:"Democratic Republic of the Congo",lat:-5.8962,lng:22.4166},
+  {name:"Bukavu",country:"Democratic Republic of the Congo",lat:-2.5083,lng:28.8608},
+  {name:"Goma",country:"Democratic Republic of the Congo",lat:-1.6585,lng:29.2205},
+
+  // Ivory Coast (Côte d'Ivoire)
+  {name:"Abidjan",country:"Ivory Coast",lat:5.3600,lng:-4.0083},
+  {name:"Yamoussoukro",country:"Ivory Coast",lat:6.8276,lng:-5.2893},
+  {name:"Bouaké",country:"Ivory Coast",lat:7.6939,lng:-5.0303},
+  {name:"Daloa",country:"Ivory Coast",lat:6.8774,lng:-6.4502},
+  {name:"San-Pédro",country:"Ivory Coast",lat:4.7485,lng:-6.6363},
+  {name:"Korhogo",country:"Ivory Coast",lat:9.4580,lng:-5.6296},
+
+  // Angola
+  {name:"Luanda",country:"Angola",lat:-8.8368,lng:13.2343},
+  {name:"Huambo",country:"Angola",lat:-12.7761,lng:15.7392},
+  {name:"Lobito",country:"Angola",lat:-12.3644,lng:13.5360},
+  {name:"Benguela",country:"Angola",lat:-12.5763,lng:13.4055},
+  {name:"Lubango",country:"Angola",lat:-14.9172,lng:13.4925},
+  {name:"Malanje",country:"Angola",lat:-9.5401,lng:16.3410},
+
+  // Cameroon
+  {name:"Douala",country:"Cameroon",lat:4.0511,lng:9.7679},
+  {name:"Yaoundé",country:"Cameroon",lat:3.8480,lng:11.5021},
+  {name:"Garoua",country:"Cameroon",lat:9.3000,lng:13.4000},
+  {name:"Bamenda",country:"Cameroon",lat:5.9586,lng:10.1475},
+  {name:"Maroua",country:"Cameroon",lat:10.5960,lng:14.3159},
+  {name:"Bafoussam",country:"Cameroon",lat:5.4778,lng:10.4176},
+
+  // Sudan
+  {name:"Khartoum",country:"Sudan",lat:15.5007,lng:32.5599},
+  {name:"Omdurman",country:"Sudan",lat:15.6445,lng:32.4777},
+  {name:"Nyala",country:"Sudan",lat:12.0461,lng:24.8776},
+  {name:"Port Sudan",country:"Sudan",lat:19.6175,lng:37.2164},
+  {name:"Kassala",country:"Sudan",lat:15.4592,lng:36.4000},
+  {name:"El Obeid",country:"Sudan",lat:13.1833,lng:30.2167},
+
+  // Uganda
+  {name:"Kampala",country:"Uganda",lat:0.3476,lng:32.5825},
+  {name:"Gulu",country:"Uganda",lat:2.7667,lng:32.3000},
+  {name:"Lira",country:"Uganda",lat:2.2499,lng:32.9000},
+  {name:"Mbarara",country:"Uganda",lat:-0.6072,lng:30.6545},
+  {name:"Jinja",country:"Uganda",lat:0.4479,lng:33.2026},
+  {name:"Entebbe",country:"Uganda",lat:0.0612,lng:32.4736},
+
+  // Senegal
+  {name:"Dakar",country:"Senegal",lat:14.7167,lng:-17.4677},
+  {name:"Touba",country:"Senegal",lat:14.8667,lng:-15.8833},
+  {name:"Thiès",country:"Senegal",lat:14.7833,lng:-16.9333},
+  {name:"Rufisque",country:"Senegal",lat:14.7167,lng:-17.2667},
+  {name:"Kaolack",country:"Senegal",lat:14.1667,lng:-16.0833},
+  {name:"Ziguinchor",country:"Senegal",lat:12.5833,lng:-16.2667},
+
+  // Zimbabwe
+  {name:"Harare",country:"Zimbabwe",lat:-17.8252,lng:31.0335},
+  {name:"Bulawayo",country:"Zimbabwe",lat:-20.1500,lng:28.5833},
+  {name:"Chitungwiza",country:"Zimbabwe",lat:-18.0127,lng:31.0756},
+  {name:"Mutare",country:"Zimbabwe",lat:-18.9707,lng:32.6709},
+  {name:"Gweru",country:"Zimbabwe",lat:-19.4500,lng:29.8167},
+  {name:"Kwekwe",country:"Zimbabwe",lat:-18.9167,lng:29.8167},
+
+  // Zambia
+  {name:"Lusaka",country:"Zambia",lat:-15.4167,lng:28.2833},
+  {name:"Kitwe",country:"Zambia",lat:-12.8024,lng:28.2132},
+  {name:"Ndola",country:"Zambia",lat:-12.9667,lng:28.6333},
+  {name:"Kabwe",country:"Zambia",lat:-14.4333,lng:28.4500},
+  {name:"Chingola",country:"Zambia",lat:-12.5290,lng:27.8838},
+  {name:"Livingstone",country:"Zambia",lat:-17.8489,lng:25.8543},
+
+  // Mali
+  {name:"Bamako",country:"Mali",lat:12.6392,lng:-8.0029},
+  {name:"Sikasso",country:"Mali",lat:11.3175,lng:-5.6667},
+  {name:"Mopti",country:"Mali",lat:14.4843,lng:-4.1825},
+  {name:"Koutiala",country:"Mali",lat:12.3917,lng:-5.4642},
+  {name:"Kayes",country:"Mali",lat:14.4469,lng:-11.4445},
+
+  // Madagascar
+  {name:"Antananarivo",country:"Madagascar",lat:-18.8792,lng:47.5079},
+  {name:"Toamasina",country:"Madagascar",lat:-18.1492,lng:49.4023},
+  {name:"Antsirabe",country:"Madagascar",lat:-19.8659,lng:47.0333},
+  {name:"Fianarantsoa",country:"Madagascar",lat:-21.4527,lng:47.0857},
+  {name:"Mahajanga",country:"Madagascar",lat:-15.7167,lng:46.3167},
+
+  // Mozambique
+  {name:"Maputo",country:"Mozambique",lat:-25.9692,lng:32.5732},
+  {name:"Matola",country:"Mozambique",lat:-25.9667,lng:32.4667},
+  {name:"Nampula",country:"Mozambique",lat:-15.1165,lng:39.2666},
+  {name:"Beira",country:"Mozambique",lat:-19.8436,lng:34.8389},
+  {name:"Chimoio",country:"Mozambique",lat:-19.1167,lng:33.4833},
+  {name:"Quelimane",country:"Mozambique",lat:-17.8764,lng:36.8872},
+
+  // Tunisia
+  {name:"Tunis",country:"Tunisia",lat:36.8190,lng:10.1658},
+  {name:"Sfax",country:"Tunisia",lat:34.7333,lng:10.7667},
+  {name:"Sousse",country:"Tunisia",lat:35.8254,lng:10.6369},
+  {name:"Kairouan",country:"Tunisia",lat:35.6781,lng:10.0963},
+  {name:"Bizerte",country:"Tunisia",lat:37.2744,lng:9.8739},
+  {name:"Gabès",country:"Tunisia",lat:33.8815,lng:10.0982},
+
+  // Libya
+  {name:"Tripoli",country:"Libya",lat:32.8872,lng:13.1913},
+  {name:"Benghazi",country:"Libya",lat:32.1167,lng:20.0667},
+  {name:"Misrata",country:"Libya",lat:32.3754,lng:15.0925},
+  {name:"Zawiya",country:"Libya",lat:32.7522,lng:12.7278},
+  {name:"Bayda",country:"Libya",lat:32.7627,lng:21.7551},
+
+  // Burkina Faso
+  {name:"Ouagadougou",country:"Burkina Faso",lat:12.3714,lng:-1.5197},
+  {name:"Bobo-Dioulasso",country:"Burkina Faso",lat:11.1771,lng:-4.2979},
+  {name:"Koudougou",country:"Burkina Faso",lat:12.2500,lng:-2.3167},
+  {name:"Banfora",country:"Burkina Faso",lat:10.6333,lng:-4.7667},
+
+  // Rwanda
+  {name:"Kigali",country:"Rwanda",lat:-1.9441,lng:30.0619},
+  {name:"Butare",country:"Rwanda",lat:-2.6000,lng:29.7500},
+  {name:"Ruhengeri",country:"Rwanda",lat:-1.5000,lng:29.6333},
+  {name:"Gisenyi",country:"Rwanda",lat:-1.7000,lng:29.2500},
+
+  // Malawi
+  {name:"Lilongwe",country:"Malawi",lat:-13.9626,lng:33.7741},
+  {name:"Blantyre",country:"Malawi",lat:-15.7861,lng:35.0058},
+  {name:"Mzuzu",country:"Malawi",lat:-11.4656,lng:34.0207},
+  {name:"Zomba",country:"Malawi",lat:-15.3833,lng:35.3333},
+
+  // Somalia
+  {name:"Mogadishu",country:"Somalia",lat:2.0469,lng:45.3182},
+  {name:"Hargeisa",country:"Somalia",lat:9.5600,lng:44.0626}, // Somaliland
+  {name:"Merca",country:"Somalia",lat:1.7133,lng:44.7717},
+  {name:"Bosaso",country:"Somalia",lat:11.2842,lng:49.1816},
+  {name:"Kismayo",country:"Somalia",lat:-0.3582,lng:42.5454},
+
+  // Guinea
+  {name:"Conakry",country:"Guinea",lat:9.5092,lng:-13.7122},
+  {name:"Nzérékoré",country:"Guinea",lat:7.7562,lng:-8.8179},
+  {name:"Kankan",country:"Guinea",lat:10.3854,lng:-9.3057},
+  {name:"Kindia",country:"Guinea",lat:10.0569,lng:-12.8656},
+
+  // Burundi
+  {name:"Bujumbura",country:"Burundi",lat:-3.3822,lng:29.3614},
+  {name:"Gitega",country:"Burundi",lat:-3.4273,lng:29.9246},
+
+  // Chad
+  {name:"N'Djamena",country:"Chad",lat:12.1131,lng:15.0498},
+  {name:"Moundou",country:"Chad",lat:8.5667,lng:16.0833},
+  {name:"Sarh",country:"Chad",lat:9.1429,lng:18.3923},
+  {name:"Abéché",country:"Chad",lat:13.8292,lng:20.8324},
+
+  // Niger
+  {name:"Niamey",country:"Niger",lat:13.5116,lng:2.1254},
+  {name:"Zinder",country:"Niger",lat:13.8058,lng:8.9881},
+  {name:"Maradi",country:"Niger",lat:13.5000,lng:7.1017},
+  {name:"Tahoua",country:"Niger",lat:14.8888,lng:5.2692},
+
+  // Mauritania
+  {name:"Nouakchott",country:"Mauritania",lat:18.0735,lng:-15.9582},
+  {name:"Nouadhibou",country:"Mauritania",lat:20.9310,lng:-17.0347},
+  {name:"Rosso",country:"Mauritania",lat:16.5167,lng:-15.8000},
+
+  // Eritrea
+  {name:"Asmara",country:"Eritrea",lat:15.3333,lng:38.9333},
+  {name:"Keren",country:"Eritrea",lat:15.7778,lng:38.4500},
+  {name:"Massawa",country:"Eritrea",lat:15.6097,lng:39.4500},
+
+  // Central African Republic
+  {name:"Bangui",country:"Central African Republic",lat:4.3947,lng:18.5582},
+  {name:"Bimbo",country:"Central African Republic",lat:4.2567,lng:18.4158},
+  {name:"Berbérati",country:"Central African Republic",lat:4.2612,lng:15.7922},
+
+  // Republic of the Congo
+  {name:"Brazzaville",country:"Republic of the Congo",lat:-4.2694,lng:15.2832},
+  {name:"Pointe-Noire",country:"Republic of the Congo",lat:-4.7692,lng:11.8664},
+  {name:"Dolisie",country:"Republic of the Congo",lat:-4.2000,lng:12.6667},
+
+  // Namibia
+  {name:"Windhoek",country:"Namibia",lat:-22.5594,lng:17.0832},
+  {name:"Rundu",country:"Namibia",lat:-17.9167,lng:19.7667},
+  {name:"Walvis Bay",country:"Namibia",lat:-22.9575,lng:14.5053},
+  {name:"Swakopmund",country:"Namibia",lat:-22.6848,lng:14.5246},
+
+  // Togo
+  {name:"Lomé",country:"Togo",lat:6.1375,lng:1.2125},
+  {name:"Sokodé",country:"Togo",lat:8.9833,lng:1.1333},
+  {name:"Kara",country:"Togo",lat:9.5500,lng:1.1833},
+
+  // Gabon
+  {name:"Libreville",country:"Gabon",lat:0.4162,lng:9.4673},
+  {name:"Port-Gentil",country:"Gabon",lat:-0.7193,lng:8.7815},
+  {name:"Franceville",country:"Gabon",lat:-1.6333,lng:13.5833},
+
+  // Botswana
+  {name:"Gaborone",country:"Botswana",lat:-24.6282,lng:25.9231},
+  {name:"Francistown",country:"Botswana",lat:-21.1736,lng:27.5125},
+  {name:"Molepolole",country:"Botswana",lat:-24.4066,lng:25.4951},
+
+  // Gambia
+  {name:"Banjul",country:"Gambia",lat:13.4549,lng:-16.5790},
+  {name:"Serekunda",country:"Gambia",lat:13.4384,lng:-16.6780},
+  {name:"Brikama",country:"Gambia",lat:13.2667,lng:-16.6500},
+
+  // Lesotho
+  {name:"Maseru",country:"Lesotho",lat:-29.3167,lng:27.4833},
+
+  // Eswatini
+  {name:"Mbabane",country:"Eswatini",lat:-26.3167,lng:31.1333},
+  {name:"Manzini",country:"Eswatini",lat:-26.5000,lng:31.3833},
+
+  // Djibouti
+  {name:"Djibouti City",country:"Djibouti",lat:11.5880,lng:43.1450},
+
+  // Guinea-Bissau
+  {name:"Bissau",country:"Guinea-Bissau",lat:11.8636,lng:-15.5977},
+
+  // Equatorial Guinea
+  {name:"Malabo",country:"Equatorial Guinea",lat:3.7500,lng:8.7833},
+  {name:"Bata",country:"Equatorial Guinea",lat:1.8639,lng:9.7658},
+
+  // Mauritius
+  {name:"Port Louis",country:"Mauritius",lat:-20.1609,lng:57.5012},
+  {name:"Beau Bassin-Rose Hill",country:"Mauritius",lat:-20.2403,lng:57.4722},
+  {name:"Vacoas",country:"Mauritius",lat:-20.2981,lng:57.4783},
+
+  // Liberia
+  {name:"Monrovia",country:"Liberia",lat:6.3005,lng:-10.7969},
+  {name:"Gbarnga",country:"Liberia",lat:6.9956,lng:-9.4722},
+
+  // Sierra Leone
+  {name:"Freetown",country:"Sierra Leone",lat:8.4606,lng:-13.2317},
+  {name:"Bo",country:"Sierra Leone",lat:7.9647,lng:-11.7383},
+  {name:"Kenema",country:"Sierra Leone",lat:7.8768,lng:-11.1903},
+  {name:"Makeni",country:"Sierra Leone",lat:8.8833,lng:-12.0500},
+
+  // South Sudan
+  {name:"Juba",country:"South Sudan",lat:4.8594,lng:31.5713},
+  {name:"Malakal",country:"South Sudan",lat:9.5334,lng:31.6605},
+  {name:"Wau",country:"South Sudan",lat:7.7029,lng:27.9953},
+
+  // Seychelles
+  {name:"Victoria",country:"Seychelles",lat:-4.6191,lng:55.4513},
+
+  // Comoros
+  {name:"Moroni",country:"Comoros",lat:-11.7022,lng:43.2551},
+
+  // Cape Verde
+  {name:"Praia",country:"Cape Verde",lat:14.9315,lng:-23.5125},
+  {name:"Mindelo",country:"Cape Verde",lat:16.8901,lng:-24.9804},
+
+  // Sao Tome and Principe
+  {name:"São Tomé",country:"Sao Tome and Principe",lat:0.3361,lng:6.7308},
+
+  // Overseas Territories in Africa
+  {name:"Saint-Denis",country:"Reunion (France)",lat:-20.8789,lng:55.4481},
+  {name:"Mamoudzou",country:"Mayotte (France)",lat:-12.7806,lng:45.2278}
+
+   
 ];
