@@ -4,6 +4,8 @@
    ===================================================================== */
 
 const CITIES = [
+
+   //EUROPE#######
   // Albania
   {name:"Tirana",country:"Albania",lat:41.3275,lng:19.8189},
   {name:"Durrës",country:"Albania",lat:41.3246,lng:19.4558},
@@ -383,6 +385,8 @@ const CITIES = [
   // Bahrain
   {name:"Manama",country:"Bahrain",lat:26.2235,lng:50.5876},
 
+
+   // ASIA#####
   // Bangladesh
   {name:"Dhaka",country:"Bangladesh",lat:23.8103,lng:90.4125},
   {name:"Chittagong",country:"Bangladesh",lat:22.3569,lng:91.7832},
@@ -676,6 +680,9 @@ const CITIES = [
   {name:"Aden",country:"Yemen",lat:12.7981,lng:45.0354},
   {name:"Taiz",country:"Yemen",lat:13.5795,lng:44.0205},
 
+
+//Oceania######
+   
 // Australia (Major Cities & Regional Centres)
   {name:"Sydney",country:"Australia",lat:-33.8688,lng:151.2093},
   {name:"Melbourne",country:"Australia",lat:-37.8136,lng:144.9631},
@@ -813,5 +820,7 @@ const CITIES = [
   // Hawaii (US - Geographically Oceania)
   {name:"Honolulu",country:"United States",lat:21.3069,lng:-157.8583},
   {name:"Hilo",country:"United States",lat:19.7241,lng:-155.0868},
-  {name:"Kailua",country:"United States",lat:21.4022,lng:-157.7394}
+  {name:"Kailua",country:"United States",lat:21.4022,lng:-157.7394},
+
+   //America######
 ];
