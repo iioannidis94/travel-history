@@ -393,6 +393,19 @@
 
 <script>
 /* =====================================================================
+   HELPERS
+   ===================================================================== */
+
+function esc(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/* =====================================================================
    DATA
    ===================================================================== */
 
@@ -663,10 +676,10 @@ function onEachCountry(feature, layer) {
     click(e) {
       const visited = visitedCountries.has(name);
       const html = `
-        <div class="popup-title">🌍 ${name}</div>
+        <div class="popup-title">🌍 ${esc(name)}</div>
         ${visited
-          ? `<button class="popup-btn popup-btn-remove" onclick="removeCountry('${name.replace(/'/g,"\\'")}')">✕ Remove</button>`
-          : `<button class="popup-btn popup-btn-add" onclick="addCountry('${name.replace(/'/g,"\\'")}')">✓ Mark as visited</button>`}
+          ? `<button class="popup-btn popup-btn-remove" onclick="removeCountry('${esc(name)}')">✕ Remove</button>`
+          : `<button class="popup-btn popup-btn-add" onclick="addCountry('${esc(name)}')">✓ Mark as visited</button>`}
       `;
       L.popup().setLatLng(e.latlng).setContent(html).openOn(map);
     },
@@ -721,11 +734,11 @@ function renderCityMarkers() {
     marker.on('click', () => {
       const v = visitedCities.has(key);
       const html = `
-        <div class="popup-title">🏙️ ${city.name}</div>
-        <div style="font-size:.8rem;color:#a0b4c8;margin-bottom:4px;">${city.country}</div>
+      <div class="popup-title">🏙️ ${esc(city.name)}</div>
+      <div style="font-size:.8rem;color:#a0b4c8;margin-bottom:4px;">${esc(city.country)}</div>
         ${v
-          ? `<button class="popup-btn popup-btn-remove" onclick="removeCityByKey('${key.replace(/'/g,"\\'")}')">✕ Remove</button>`
-          : `<button class="popup-btn popup-btn-add" onclick="addCityByKey('${key.replace(/'/g,"\\'")}')">✓ Mark as visited</button>`}
+        ? `<button class="popup-btn popup-btn-remove" onclick="removeCityByKey('${esc(key)}')">✕ Remove</button>`
+        : `<button class="popup-btn popup-btn-add" onclick="addCityByKey('${esc(key)}')">✓ Mark as visited</button>`}
       `;
       L.popup().setLatLng([city.lat, city.lng]).setContent(html).openOn(map);
     });
@@ -824,11 +837,18 @@ searchInput.addEventListener('input', () => {
   matches.forEach((item, i) => {
     const div = document.createElement('div');
     const visited = visitedCities.has(cityKey(item.data)) || visitedCountries.has(item.data.country);
-    div.innerHTML = `
-      ${visited ? '<div class="visited-dot"></div>' : ''}
-      <span>${item.label}</span>
-      <span class="tag">${item.type}</span>
-    `;
+    if (visited) {
+      const dot = document.createElement('div');
+      dot.className = 'visited-dot';
+      div.appendChild(dot);
+    }
+    const labelSpan = document.createElement('span');
+    labelSpan.textContent = item.label;
+    div.appendChild(labelSpan);
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = item.type;
+    div.appendChild(tag);
     div.addEventListener('click', () => selectSearchItem(item));
     acList.appendChild(div);
   });
@@ -862,11 +882,11 @@ function selectSearchItem(item) {
     const key = cityKey(c);
     const visited = visitedCities.has(key);
     const html = `
-      <div class="popup-title">🏙️ ${c.name}</div>
-      <div style="font-size:.8rem;color:#a0b4c8;margin-bottom:4px;">${c.country}</div>
+    <div class="popup-title">🏙️ ${esc(c.name)}</div>
+    <div style="font-size:.8rem;color:#a0b4c8;margin-bottom:4px;">${esc(c.country)}</div>
       ${visited
-        ? `<button class="popup-btn popup-btn-remove" onclick="removeCityByKey('${key.replace(/'/g,"\\'")}')">✕ Remove</button>`
-        : `<button class="popup-btn popup-btn-add" onclick="addCityByKey('${key.replace(/'/g,"\\'")}')">✓ Mark as visited</button>`}
+      ? `<button class="popup-btn popup-btn-remove" onclick="removeCityByKey('${esc(key)}')">✕ Remove</button>`
+      : `<button class="popup-btn popup-btn-add" onclick="addCityByKey('${esc(key)}')">✓ Mark as visited</button>`}
     `;
     setTimeout(() => L.popup().setLatLng([c.lat, c.lng]).setContent(html).openOn(map), 400);
   }
@@ -893,9 +913,9 @@ function renderPanel() {
     div.className = 'item';
     div.innerHTML = `
       <div class="dot" style="background:#3b82f6;"></div>
-      <span class="name">${name}</span>
+      <span class="name">${esc(name)}</span>
       <span class="type-badge">country</span>
-      <button class="remove-btn" onclick="removeCountry('${name.replace(/'/g,"\\'")}')">✕</button>
+      <button class="remove-btn" onclick="removeCountry('${esc(name)}')">✕</button>
     `;
     list.appendChild(div);
   });
@@ -907,9 +927,9 @@ function renderPanel() {
     div.className = 'item';
     div.innerHTML = `
       <div class="dot" style="background:#f59e0b;"></div>
-      <span class="name">${city.name}</span>
+      <span class="name">${esc(city.name)}</span>
       <span class="type-badge">city</span>
-      <button class="remove-btn" onclick="removeCityByKey('${key.replace(/'/g,"\\'")}')">✕</button>
+      <button class="remove-btn" onclick="removeCityByKey('${esc(key)}')">✕</button>
     `;
     list.appendChild(div);
   });
