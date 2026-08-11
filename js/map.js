@@ -42,7 +42,7 @@ const cityLabelData = CITIES.map((city, index) => {
   return { ...city, index, rankInCountry };
 });
 
-// ΕΞΥΠΝΗ ΣΥΝΑΡΤΗΣΗ: Κανονικοποίηση ονομάτων για ασφαλή αντιστοίχιση χωρών και πόλεων
+// ΑΥΣΤΗΡΗ ΚΑΙ ΣΩΣΤΗ ΣΥΝΑΡΤΗΣΗ ΕΛΕΓΧΟΥ ΠΟΛΗΣ-ΧΩΡΑΣ
 function normalizeName(name) {
   return name ? name.toLowerCase().replace(/[^a-z]/g, '') : '';
 }
@@ -52,7 +52,11 @@ function hasVisitedCityInCountry(geoCountryName) {
 
   for (const [key, city] of visitedCities.entries()) {
     const normCityCountry = normalizeName(city.country);
-    if (normCityCountry === normGeoName || normCityCountry.includes(normGeoName) || normGeoName.includes(normCityCountry)) {
+    
+    // Ακριβής ταύτιση ή αν η μία λέξη περιέχει την άλλη αλλά με αυστηρότερο έλεγχο
+    if (normCityCountry === normGeoName || 
+       (normCityCountry.length > 3 && normGeoName.includes(normCityCountry)) ||
+       (normGeoName.length > 3 && normCityCountry.includes(normGeoName))) {
       return true;
     }
   }
