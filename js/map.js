@@ -8,7 +8,6 @@ const map = L.map('map', {
   minZoom: 2,
   maxZoom: 12,
   zoomControl: true,
-  // ΕΝΕΡΓΟΠΟΙΗΣΗ ΑΠΕΙΡΟΥ ΣΚΡΟΛ!
   worldCopyJump: true 
 });
 
@@ -25,7 +24,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
   attribution: '&copy; <a href="https://carto.com/">CartoDB</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
   subdomains: 'abcd',
   maxZoom: 19
-  // Αφαιρέσαμε το noWrap: true και το bounds για να επαναλαμβάνεται ο χάρτης
 }).addTo(map);
 
 /* ── Country GeoJSON ── */
@@ -44,8 +42,8 @@ const cityLabelData = CITIES.map((city, index) => {
 });
 
 function hasVisitedCityInCountry(name) {
-  for (const city of visitedCities.values()) {
-    if (city.country === name) return true;
+  for (const [key, city] of visitedCities.entries()) {
+    if (city.country.toLowerCase() === name.toLowerCase()) return true;
   }
   return false;
 }
@@ -60,9 +58,10 @@ function countryStyle(feature) {
   const name = feature.properties.ADMIN;
   const state = getCountryVisualState(name);
   return {
+    // Εδώ ορίζεται το χρώμα: Μπλε αν είναι visited η χώρα, Απαλό Πράσινο (#34d399) αν έχεις πάει σε πόλη, Σκοτεινό αν είναι άψογη
     fillColor: state === 'visited' ? '#3b82f6' : state === 'city-visited' ? '#34d399' : '#1e3248',
-    fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.48 : 0.35,
-    color: state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#86efac' : '#2a3a50',
+    fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.45 : 0.35,
+    color: state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#6ee7b7' : '#2a3a50',
     weight: state === 'default' ? 0.5 : 1.3,
   };
 }
@@ -118,6 +117,15 @@ fetch(GEOJSON_URL)
     renderLabels();
   })
   .catch(() => showToast('⚠️ Could not load country borders', '#ef4444'));
+
+/* ── CSS Style Injection για Zero-Lag στο Zoom ── */
+const style = document.createElement('style');
+style.innerHTML = `
+  .hide-unvisited-cities .city-marker-unvisited {
+    display: none !important;
+  }
+`;
+document.head.appendChild(style);
 
 /* ── City markers ── */
 
@@ -311,6 +319,9 @@ map.on('moveend zoomend resize', () => {
 /* ── Refresh the whole map view ── */
 
 function refreshMap() {
-  if (geoLayer) geoLayer.setStyle(countryStyle);
+  if (geoLayer) {
+    // Ενημερώνει τα χρώματα όλων των χωρών δυναμικά στον χάρτη
+    geoLayer.setStyle(countryStyle);
+  }
   renderCityMarkers();
 }
