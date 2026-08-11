@@ -377,6 +377,410 @@ const CITIES = [
   {name:"Vatican City",country:"Vatican City",lat:41.9029,lng:12.4534},
 
 
+// --- MORE EUROPEAN CITIES ---
+
+  // Albania (Additional)
+  {name:"Elbasan",country:"Albania",lat:41.1125,lng:20.0822},
+  {name:"Fier",country:"Albania",lat:40.7239,lng:19.5561},
+  {name:"Korçë",country:"Albania",lat:40.6186,lng:20.7808},
+
+  // Austria (Additional)
+  {name:"Bregenz",country:"Austria",lat:47.5000,lng:9.7320},
+  {name:"St. Pölten",country:"Austria",lat:48.2047,lng:15.6256},
+  {name:"Villach",country:"Austria",lat:46.6111,lng:13.8558},
+  {name:"Wels",country:"Austria",lat:48.1566,lng:14.0246},
+
+  // Belarus (Additional)
+  {name:"Grodno",country:"Belarus",lat:53.6693,lng:23.8223},
+  {name:"Mogilev",country:"Belarus",lat:53.8981,lng:30.3325},
+  {name:"Baranovichi",country:"Belarus",lat:53.1327,lng:26.0123},
+
+  // Belgium (Additional)
+  {name:"Charleroi",country:"Belgium",lat:50.4114,lng:4.4445},
+  {name:"Mechelen",country:"Belgium",lat:51.0257,lng:4.4776},
+  {name:"Mons",country:"Belgium",lat:50.4542,lng:3.9567},
+  {name:"Ostend",country:"Belgium",lat:51.2294,lng:2.9203},
+
+  // Bosnia and Herzegovina (Additional)
+  {name:"Zenica",country:"Bosnia and Herzegovina",lat:44.2017,lng:17.9040},
+  {name:"Bijeljina",country:"Bosnia and Herzegovina",lat:44.7570,lng:19.2144},
+  {name:"Trebinje",country:"Bosnia and Herzegovina",lat:42.7108,lng:18.3436},
+
+  // Bulgaria (Additional)
+  {name:"Stara Zagora",country:"Bulgaria",lat:42.4258,lng:25.6345},
+  {name:"Pleven",country:"Bulgaria",lat:43.4170,lng:24.6067},
+  {name:"Sliven",country:"Bulgaria",lat:42.6806,lng:26.3229},
+  {name:"Dobrich",country:"Bulgaria",lat:43.5726,lng:27.8273},
+
+  // Croatia (Additional)
+  {name:"Slavonski Brod",country:"Croatia",lat:45.1631,lng:18.0116},
+  {name:"Pula",country:"Croatia",lat:44.8683,lng:13.8481},
+  {name:"Karlovac",country:"Croatia",lat:45.4929,lng:15.5553},
+  {name:"Varaždin",country:"Croatia",lat:46.3044,lng:16.3378},
+  {name:"Šibenik",country:"Croatia",lat:43.7314,lng:15.8933},
+
+  // Cyprus (Additional)
+  {name:"Kyrenia",country:"Cyprus",lat:35.3403,lng:33.3192},
+  {name:"Famagusta",country:"Cyprus",lat:35.1149,lng:33.9396},
+
+  // Czech Republic (Additional)
+  {name:"Liberec",country:"Czech Republic",lat:50.7671,lng:15.0562},
+  {name:"České Budějovice",country:"Czech Republic",lat:48.9745,lng:14.4743},
+  {name:"Hradec Králové",country:"Czech Republic",lat:50.2104,lng:15.8328},
+  {name:"Ústí nad Labem",country:"Czech Republic",lat:50.6611,lng:14.0322},
+  {name:"Pardubice",country:"Czech Republic",lat:50.0343,lng:15.7720},
+
+  // Denmark (Additional)
+  {name:"Esbjerg",country:"Denmark",lat:55.4765,lng:8.4594},
+  {name:"Vejle",country:"Denmark",lat:55.7093,lng:9.5357},
+  {name:"Randers",country:"Denmark",lat:56.4606,lng:10.0364},
+  {name:"Viborg",country:"Denmark",lat:56.4532,lng:9.4020},
+  {name:"Kolding",country:"Denmark",lat:55.4904,lng:9.4722},
+
+  // Estonia (Additional)
+  {name:"Narva",country:"Estonia",lat:59.3772,lng:28.1903},
+  {name:"Kohtla-Järve",country:"Estonia",lat:59.3986,lng:27.2736},
+
+  // Finland (Additional)
+  {name:"Vantaa",country:"Finland",lat:60.2933,lng:25.0378},
+  {name:"Jyväskylä",country:"Finland",lat:62.2415,lng:25.7209},
+  {name:"Kuopio",country:"Finland",lat:62.8924,lng:27.6770},
+  {name:"Lahti",country:"Finland",lat:60.9827,lng:25.6615},
+  {name:"Pori",country:"Finland",lat:61.4851,lng:21.7974},
+  {name:"Vaasa",country:"Finland",lat:63.0951,lng:21.6165},
+
+  // France (Additional)
+  {name:"Toulon",country:"France",lat:43.1242,lng:5.9280},
+  {name:"Grenoble",country:"France",lat:45.1885,lng:5.7245},
+  {name:"Dijon",country:"France",lat:47.3220,lng:5.0415},
+  {name:"Angers",country:"France",lat:47.4721,lng:-0.5516},
+  {name:"Le Havre",country:"France",lat:49.4944,lng:0.1079},
+  {name:"Saint-Étienne",country:"France",lat:45.4397,lng:4.3872},
+  {name:"Nîmes",country:"France",lat:43.8367,lng:4.3601},
+  {name:"Clermont-Ferrand",country:"France",lat:45.7772,lng:3.0870},
+  {name:"Amiens",country:"France",lat:49.8941,lng:2.2957},
+  {name:"Tours",country:"France",lat:47.3941,lng:0.6848},
+  {name:"Limoges",country:"France",lat:45.8336,lng:1.2611},
+  {name:"Besançon",country:"France",lat:47.2378,lng:6.0241},
+  {name:"Orléans",country:"France",lat:47.9029,lng:1.9093},
+  {name:"Metz",country:"France",lat:49.1193,lng:6.1727},
+  {name:"Rouen",country:"France",lat:49.4432,lng:1.0999},
+
+  // Georgia (Additional)
+  {name:"Rustavi",country:"Georgia",lat:41.5399,lng:45.0069},
+  {name:"Gori",country:"Georgia",lat:41.9842,lng:44.1158},
+  {name:"Zugdidi",country:"Georgia",lat:42.5088,lng:41.8709},
+
+  // Germany (Additional)
+  {name:"Bochum",country:"Germany",lat:51.4818,lng:7.2162},
+  {name:"Wuppertal",country:"Germany",lat:51.2562,lng:7.1508},
+  {name:"Bielefeld",country:"Germany",lat:52.0302,lng:8.5325},
+  {name:"Bonn",country:"Germany",lat:50.7374,lng:7.0982},
+  {name:"Münster",country:"Germany",lat:51.9607,lng:7.6261},
+  {name:"Karlsruhe",country:"Germany",lat:49.0069,lng:8.4037},
+  {name:"Mannheim",country:"Germany",lat:49.4875,lng:8.4660},
+  {name:"Augsburg",country:"Germany",lat:48.3705,lng:10.8978},
+  {name:"Wiesbaden",country:"Germany",lat:50.0782,lng:8.2398},
+  {name:"Gelsenkirchen",country:"Germany",lat:51.5177,lng:7.0857},
+  {name:"Mönchengladbach",country:"Germany",lat:51.1913,lng:6.4428},
+  {name:"Braunschweig",country:"Germany",lat:52.2689,lng:10.5268},
+  {name:"Chemnitz",country:"Germany",lat:50.8323,lng:12.9197},
+  {name:"Kiel",country:"Germany",lat:54.3233,lng:10.1228},
+  {name:"Aachen",country:"Germany",lat:50.7753,lng:6.0839},
+  {name:"Halle (Saale)",country:"Germany",lat:51.4826,lng:11.9706},
+  {name:"Magdeburg",country:"Germany",lat:52.1205,lng:11.6276},
+  {name:"Freiburg im Breisgau",country:"Germany",lat:47.9990,lng:7.8421},
+  {name:"Krefeld",country:"Germany",lat:51.3331,lng:6.5623},
+  {name:"Lübeck",country:"Germany",lat:53.8655,lng:10.6866},
+  {name:"Erfurt",country:"Germany",lat:50.9781,lng:11.0293},
+  {name:"Oberhausen",country:"Germany",lat:51.4729,lng:6.8643},
+  {name:"Rostock",country:"Germany",lat:54.0924,lng:12.0991},
+  {name:"Mainz",country:"Germany",lat:49.9929,lng:8.2473},
+  {name:"Kassel",country:"Germany",lat:51.3127,lng:9.4797},
+  {name:"Saarbrücken",country:"Germany",lat:49.2402,lng:6.9969},
+  {name:"Potsdam",country:"Germany",lat:52.3906,lng:13.0645},
+
+  // Greece (Additional)
+  {name:"Kalamata",country:"Greece",lat:37.0422,lng:22.1102},
+  {name:"Trikala",country:"Greece",lat:39.5557,lng:21.7679},
+  {name:"Chalkida",country:"Greece",lat:38.4627,lng:23.5956},
+  {name:"Serres",country:"Greece",lat:41.0921,lng:23.5413},
+  {name:"Alexandroupoli",country:"Greece",lat:40.8457,lng:25.8770},
+  {name:"Xanthi",country:"Greece",lat:41.1349,lng:24.8880},
+  {name:"Katerini",country:"Greece",lat:40.2696,lng:22.5061},
+  {name:"Corfu (Kerkyra)",country:"Greece",lat:39.6243,lng:19.9217},
+  {name:"Lamia",country:"Greece",lat:38.9003,lng:22.4334},
+  {name:"Kozani",country:"Greece",lat:40.3006,lng:21.7889},
+
+  // Hungary (Additional)
+  {name:"Győr",country:"Hungary",lat:47.6875,lng:17.6504},
+  {name:"Nyíregyháza",country:"Hungary",lat:47.9554,lng:21.7167},
+  {name:"Kecskemét",country:"Hungary",lat:46.9062,lng:19.6913},
+  {name:"Székesfehérvár",country:"Hungary",lat:47.1899,lng:18.4103},
+  {name:"Szombathely",country:"Hungary",lat:47.2307,lng:16.6215},
+
+  // Ireland (Additional)
+  {name:"Drogheda",country:"Ireland",lat:53.7153,lng:-6.3533},
+  {name:"Dundalk",country:"Ireland",lat:54.0042,lng:-6.4011},
+  {name:"Swords",country:"Ireland",lat:53.4597,lng:-6.2181},
+  {name:"Bray",country:"Ireland",lat:53.2006,lng:-6.1111},
+  {name:"Navan",country:"Ireland",lat:53.6528,lng:-6.6814},
+  {name:"Kilkenny",country:"Ireland",lat:52.6541,lng:-7.2448},
+  {name:"Ennis",country:"Ireland",lat:52.8463,lng:-8.9807},
+
+  // Italy (Additional)
+  {name:"Brescia",country:"Italy",lat:45.5416,lng:10.2118},
+  {name:"Parma",country:"Italy",lat:44.8015,lng:10.3279},
+  {name:"Taranto",country:"Italy",lat:40.4712,lng:17.2432},
+  {name:"Prato",country:"Italy",lat:43.8777,lng:11.0945},
+  {name:"Modena",country:"Italy",lat:44.6471,lng:10.9252},
+  {name:"Reggio Calabria",country:"Italy",lat:38.1113,lng:15.6618},
+  {name:"Reggio Emilia",country:"Italy",lat:44.6983,lng:10.6312},
+  {name:"Perugia",country:"Italy",lat:43.1107,lng:12.3908},
+  {name:"Ravenna",country:"Italy",lat:44.4184,lng:12.2035},
+  {name:"Livorno",country:"Italy",lat:43.5485,lng:10.3106},
+  {name:"Cagliari",country:"Italy",lat:39.2238,lng:9.1116},
+  {name:"Foggia",country:"Italy",lat:41.4623,lng:15.5448},
+  {name:"Rimini",country:"Italy",lat:44.0621,lng:12.5694},
+  {name:"Salerno",country:"Italy",lat:40.6789,lng:14.7659},
+  {name:"Ferrara",country:"Italy",lat:44.8381,lng:11.6198},
+  {name:"Sassari",country:"Italy",lat:40.7259,lng:8.5556},
+  {name:"Siracusa",country:"Italy",lat:37.0755,lng:15.2866},
+  {name:"Pescara",country:"Italy",lat:42.4618,lng:14.2161},
+  {name:"Monza",country:"Italy",lat:45.5845,lng:9.2744},
+  {name:"Bergamo",country:"Italy",lat:45.6983,lng:9.6773},
+  {name:"Trento",country:"Italy",lat:46.0697,lng:11.1211},
+  {name:"Forlì",country:"Italy",lat:44.2227,lng:12.0407},
+  {name:"Vicenza",country:"Italy",lat:45.5455,lng:11.5354},
+
+  // Kosovo (Additional)
+  {name:"Gjilan",country:"Kosovo",lat:42.4633,lng:21.4683},
+  {name:"Peja",country:"Kosovo",lat:42.6593,lng:20.2887},
+  {name:"Mitrovica",country:"Kosovo",lat:42.8914,lng:20.8660},
+
+  // Latvia (Additional)
+  {name:"Jelgava",country:"Latvia",lat:56.6500,lng:23.7128},
+  {name:"Ventspils",country:"Latvia",lat:57.3897,lng:21.5647},
+  {name:"Rezekne",country:"Latvia",lat:56.5113,lng:27.3314},
+
+  // Lithuania (Additional)
+  {name:"Panevėžys",country:"Lithuania",lat:55.7348,lng:24.3575},
+  {name:"Alytus",country:"Lithuania",lat:54.3964,lng:24.0414},
+
+  // Moldova (Additional)
+  {name:"Bălți",country:"Moldova",lat:47.7593,lng:27.9287},
+  {name:"Bender (Tighina)",country:"Moldova",lat:46.8259,lng:29.4731},
+
+  // Netherlands (Additional)
+  {name:"Haarlem",country:"Netherlands",lat:52.3874,lng:4.6462},
+  {name:"Arnhem",country:"Netherlands",lat:51.9851,lng:5.8987},
+  {name:"Nijmegen",country:"Netherlands",lat:51.8126,lng:5.8372},
+  {name:"Enschede",country:"Netherlands",lat:52.2183,lng:6.8958},
+  {name:"Apeldoorn",country:"Netherlands",lat:52.2112,lng:5.9699},
+  {name:"Amersfoort",country:"Netherlands",lat:52.1561,lng:5.3878},
+  {name:"'s-Hertogenbosch",country:"Netherlands",lat:51.6978,lng:5.3037},
+  {name:"Hoofddorp",country:"Netherlands",lat:52.3023,lng:4.6806},
+  {name:"Maastricht",country:"Netherlands",lat:50.8514,lng:5.6910},
+  {name:"Leiden",country:"Netherlands",lat:52.1601,lng:4.4970},
+  {name:"Dordrecht",country:"Netherlands",lat:51.8133,lng:4.6900},
+  {name:"Zoetermeer",country:"Netherlands",lat:52.0607,lng:4.4940},
+
+  // North Macedonia (Additional)
+  {name:"Kumanovo",country:"North Macedonia",lat:42.1322,lng:21.7144},
+  {name:"Prilep",country:"North Macedonia",lat:41.3463,lng:21.5513},
+  {name:"Tetovo",country:"North Macedonia",lat:42.0106,lng:20.9714},
+
+  // Norway (Additional)
+  {name:"Sandvika",country:"Norway",lat:59.8911,lng:10.5238},
+  {name:"Kristiansand",country:"Norway",lat:58.1599,lng:8.0182},
+  {name:"Drammen",country:"Norway",lat:59.7441,lng:10.2045},
+  {name:"Asker",country:"Norway",lat:59.8331,lng:10.4392},
+  {name:"Lillestrøm",country:"Norway",lat:59.9547,lng:11.0483},
+  {name:"Fredrikstad",country:"Norway",lat:59.2205,lng:10.9347},
+
+  // Poland (Additional)
+  {name:"Gdynia",country:"Poland",lat:54.5189,lng:18.5305},
+  {name:"Częstochowa",country:"Poland",lat:50.8118,lng:19.1203},
+  {name:"Radom",country:"Poland",lat:51.4027,lng:21.1471},
+  {name:"Sosnowiec",country:"Poland",lat:50.2749,lng:19.1056},
+  {name:"Toruń",country:"Poland",lat:53.0138,lng:18.5984},
+  {name:"Kielce",country:"Poland",lat:50.8661,lng:20.6286},
+  {name:"Rzeszów",country:"Poland",lat:50.0412,lng:21.9991},
+  {name:"Gliwice",country:"Poland",lat:50.2945,lng:18.6657},
+  {name:"Zabrze",country:"Poland",lat:50.3249,lng:18.7857},
+  {name:"Olsztyn",country:"Poland",lat:53.7784,lng:20.4801},
+  {name:"Bielsko-Biała",country:"Poland",lat:49.8225,lng:19.0583},
+  {name:"Bytom",country:"Poland",lat:50.3480,lng:18.9276},
+
+  // Portugal (Additional)
+  {name:"Vila Nova de Gaia",country:"Portugal",lat:41.1239,lng:-8.6118},
+  {name:"Amadora",country:"Portugal",lat:38.7601,lng:-9.2312},
+  {name:"Setúbal",country:"Portugal",lat:38.5244,lng:-8.8906},
+  {name:"Almada",country:"Portugal",lat:38.6790,lng:-9.1569},
+  {name:"Gondomar",country:"Portugal",lat:41.1397,lng:-8.5332},
+  {name:"Guimarães",country:"Portugal",lat:41.4425,lng:-8.2936},
+  {name:"Matosinhos",country:"Portugal",lat:41.1844,lng:-8.6963},
+  {name:"Leiria",country:"Portugal",lat:39.7436,lng:-8.8071},
+  {name:"Évora",country:"Portugal",lat:38.5714,lng:-7.9135},
+  {name:"Aveiro",country:"Portugal",lat:40.6405,lng:-8.6538},
+
+  // Romania (Additional)
+  {name:"Galați",country:"Romania",lat:45.4353,lng:28.0080},
+  {name:"Ploiești",country:"Romania",lat:44.9367,lng:26.0125},
+  {name:"Oradea",country:"Romania",lat:47.0515,lng:21.9398},
+  {name:"Brăila",country:"Romania",lat:45.2719,lng:27.9733},
+  {name:"Arad",country:"Romania",lat:46.1866,lng:21.3123},
+  {name:"Pitești",country:"Romania",lat:44.8565,lng:24.8692},
+  {name:"Bacău",country:"Romania",lat:46.5670,lng:26.9146},
+  {name:"Târgu Mureș",country:"Romania",lat:46.5425,lng:24.5575},
+  {name:"Baia Mare",country:"Romania",lat:47.6533,lng:23.5795},
+  {name:"Buzău",country:"Romania",lat:45.1517,lng:26.8169},
+
+  // Russia (European Part - Additional)
+  {name:"Chelyabinsk",country:"Russia",lat:55.1644,lng:61.4368}, // Near Europe/Asia border
+  {name:"Ufa",country:"Russia",lat:54.7388,lng:55.9721},
+  {name:"Voronezh",country:"Russia",lat:51.6608,lng:39.2003},
+  {name:"Perm",country:"Russia",lat:58.0105,lng:56.2502},
+  {name:"Saratov",country:"Russia",lat:51.5303,lng:45.9811},
+  {name:"Krasnodar",country:"Russia",lat:45.0393,lng:38.9872},
+  {name:"Tolyatti",country:"Russia",lat:53.5073,lng:49.4206},
+  {name:"Izhevsk",country:"Russia",lat:56.8498,lng:53.2045},
+  {name:"Ulyanovsk",country:"Russia",lat:54.3141,lng:48.4031},
+  {name:"Yaroslavl",country:"Russia",lat:57.6261,lng:39.8845},
+  {name:"Makhachkala",country:"Russia",lat:42.9788,lng:47.5028},
+  {name:"Orenburg",country:"Russia",lat:51.7682,lng:55.0970},
+  {name:"Ryazan",country:"Russia",lat:54.6293,lng:39.7366},
+  {name:"Astrakhan",country:"Russia",lat:46.3497,lng:48.0408},
+  {name:"Penza",country:"Russia",lat:53.2007,lng:45.0046},
+
+  // Serbia (Additional)
+  {name:"Subotica",country:"Serbia",lat:46.1000,lng:19.6667},
+  {name:"Zrenjanin",country:"Serbia",lat:45.3836,lng:20.3819},
+  {name:"Pančevo",country:"Serbia",lat:44.8739,lng:20.6619},
+  {name:"Čačak",country:"Serbia",lat:43.8914,lng:20.3500},
+  {name:"Kraljevo",country:"Serbia",lat:43.7258,lng:20.6894},
+
+  // Slovakia (Additional)
+  {name:"Nitra",country:"Slovakia",lat:48.3124,lng:18.0872},
+  {name:"Banská Bystrica",country:"Slovakia",lat:48.7363,lng:19.1462},
+  {name:"Trnava",country:"Slovakia",lat:48.3709,lng:17.5833},
+  {name:"Martin",country:"Slovakia",lat:49.0665,lng:18.9240},
+  {name:"Trenčín",country:"Slovakia",lat:48.8945,lng:18.0444},
+
+  // Slovenia (Additional)
+  {name:"Koper",country:"Slovenia",lat:45.5481,lng:13.7302},
+  {name:"Velenje",country:"Slovenia",lat:46.3622,lng:15.1147},
+  {name:"Novo Mesto",country:"Slovenia",lat:45.8011,lng:15.1710},
+  {name:"Ptuj",country:"Slovenia",lat:46.4200,lng:15.8702},
+
+  // Spain (Additional)
+  {name:"Bilbao",country:"Spain",lat:43.2630,lng:-2.9350},
+  {name:"A Coruña",country:"Spain",lat:43.3623,lng:-8.4115},
+  {name:"Granada",country:"Spain",lat:37.1773,lng:-3.5986},
+  {name:"Vitoria-Gasteiz",country:"Spain",lat:42.8463,lng:-2.6716},
+  {name:"Elche",country:"Spain",lat:38.2699,lng:-0.6912},
+  {name:"Oviedo",country:"Spain",lat:43.3619,lng:-5.8494},
+  {name:"Santa Cruz de Tenerife",country:"Spain",lat:28.4636,lng:-16.2518},
+  {name:"Badalona",country:"Spain",lat:41.4399,lng:2.2474},
+  {name:"Cartagena",country:"Spain",lat:37.6051,lng:-0.9862},
+  {name:"Terrassa",country:"Spain",lat:41.5616,lng:2.0089},
+  {name:"Jerez de la Frontera",country:"Spain",lat:36.6850,lng:-6.1261},
+  {name:"Sabadell",country:"Spain",lat:41.5463,lng:2.1086},
+  {name:"Móstoles",country:"Spain",lat:40.3230,lng:-3.8643},
+  {name:"Alcalá de Henares",country:"Spain",lat:40.4815,lng:-3.3639},
+  {name:"Pamplona",country:"Spain",lat:42.8125,lng:-1.6458},
+  {name:"Almería",country:"Spain",lat:36.8340,lng:-2.4637},
+  {name:"Fuenlabrada",country:"Spain",lat:40.2842,lng:-3.7942},
+  {name:"Leganés",country:"Spain",lat:40.3282,lng:-3.7669},
+  {name:"San Sebastián",country:"Spain",lat:43.3183,lng:-1.9812},
+  {name:"Getafe",country:"Spain",lat:40.3083,lng:-3.7327},
+  {name:"Burgos",country:"Spain",lat:42.3439,lng:-3.6969},
+  {name:"Albacete",country:"Spain",lat:38.9943,lng:-1.8585},
+  {name:"Santander",country:"Spain",lat:43.4623,lng:-3.8099},
+  {name:"Castellón de la Plana",country:"Spain",lat:39.9864,lng:-0.0369},
+
+  // Sweden (Additional)
+  {name:"Linköping",country:"Sweden",lat:58.4108,lng:15.6214},
+  {name:"Helsingborg",country:"Sweden",lat:56.0465,lng:12.6945},
+  {name:"Norrköping",country:"Sweden",lat:58.5877,lng:16.1924},
+  {name:"Jönköping",country:"Sweden",lat:57.7815,lng:14.1562},
+  {name:"Lund",country:"Sweden",lat:55.7047,lng:13.1910},
+  {name:"Umeå",country:"Sweden",lat:63.8258,lng:20.2630},
+  {name:"Gävle",country:"Sweden",lat:60.6749,lng:17.1413},
+  {name:"Borås",country:"Sweden",lat:57.7210,lng:12.9401},
+  {name:"Södertälje",country:"Sweden",lat:59.1955,lng:17.6252},
+
+  // Switzerland (Additional)
+  {name:"Biel/Bienne",country:"Switzerland",lat:47.1368,lng:7.2468},
+  {name:"Lugano",country:"Switzerland",lat:46.0037,lng:8.9511},
+  {name:"Thun",country:"Switzerland",lat:46.7580,lng:7.6280},
+  {name:"Köniz",country:"Switzerland",lat:46.9238,lng:7.4144},
+  {name:"La Chaux-de-Fonds",country:"Switzerland",lat:47.1006,lng:6.8255},
+  {name:"Fribourg",country:"Switzerland",lat:46.8065,lng:7.1619},
+  {name:"Schaffhausen",country:"Switzerland",lat:47.6973,lng:8.6349},
+  {name:"Chur",country:"Switzerland",lat:46.8503,lng:9.5319},
+
+  // Turkey (European Part - Additional)
+  {name:"Çorlu",country:"Turkey",lat:41.1592,lng:27.8000},
+  {name:"Lüleburgaz",country:"Turkey",lat:41.4039,lng:27.3592},
+  {name:"Kırklareli",country:"Turkey",lat:41.7351,lng:27.2252},
+  {name:"Silivri",country:"Turkey",lat:41.0742,lng:28.2464},
+  {name:"Çerkezköy",country:"Turkey",lat:41.2882,lng:28.0004},
+
+  // Ukraine (Additional)
+  {name:"Donetsk",country:"Ukraine",lat:48.0159,lng:37.8028},
+  {name:"Kryvyi Rih",country:"Ukraine",lat:47.9105,lng:33.3918},
+  {name:"Mykolaiv",country:"Ukraine",lat:46.9750,lng:31.9946},
+  {name:"Mariupol",country:"Ukraine",lat:47.0971,lng:37.5434},
+  {name:"Luhansk",country:"Ukraine",lat:48.5740,lng:39.2977},
+  {name:"Vinnytsia",country:"Ukraine",lat:49.2331,lng:28.4682},
+  {name:"Makiivka",country:"Ukraine",lat:48.0430,lng:37.9734},
+  {name:"Sevastopol",country:"Ukraine",lat:44.6166,lng:33.5254},
+  {name:"Simferopol",country:"Ukraine",lat:44.9521,lng:34.1024},
+  {name:"Kherson",country:"Ukraine",lat:46.6354,lng:32.6169},
+  {name:"Poltava",country:"Ukraine",lat:49.5897,lng:34.5507},
+  {name:"Chernihiv",country:"Ukraine",lat:51.4982,lng:31.2893},
+  {name:"Cherkasy",country:"Ukraine",lat:49.4444,lng:32.0598},
+  {name:"Khmelnytskyi",country:"Ukraine",lat:49.4230,lng:26.9871},
+  {name:"Zhytomyr",country:"Ukraine",lat:50.2547,lng:28.6587},
+  {name:"Chernivtsi",country:"Ukraine",lat:48.2915,lng:25.9348},
+  {name:"Sumy",country:"Ukraine",lat:50.9077,lng:34.7981},
+  {name:"Horlivka",country:"Ukraine",lat:48.3056,lng:38.0183},
+  {name:"Rivne",country:"Ukraine",lat:50.6199,lng:26.2516},
+
+  // United Kingdom (Additional)
+  {name:"Leicester",country:"United Kingdom",lat:52.6369,lng:-1.1398},
+  {name:"Sunderland",country:"United Kingdom",lat:54.9069,lng:-1.3838},
+  {name:"Brighton",country:"United Kingdom",lat:50.8225,lng:-0.1372},
+  {name:"Hull",country:"United Kingdom",lat:53.7676,lng:-0.3274},
+  {name:"Plymouth",country:"United Kingdom",lat:50.3755,lng:-4.1427},
+  {name:"Stoke-on-Trent",country:"United Kingdom",lat:53.0027,lng:-2.1794},
+  {name:"Wolverhampton",country:"United Kingdom",lat:52.5870,lng:-2.1284},
+  {name:"Derby",country:"United Kingdom",lat:52.9225,lng:-1.4746},
+  {name:"Swansea",country:"United Kingdom",lat:51.6214,lng:-3.9436},
+  {name:"Southampton",country:"United Kingdom",lat:50.9097,lng:-1.4044},
+  {name:"Salford",country:"United Kingdom",lat:53.4875,lng:-2.2901},
+  {name:"Aberdeen",country:"United Kingdom",lat:57.1497,lng:-2.0943},
+  {name:"Westminster",country:"United Kingdom",lat:51.4975,lng:-0.1357},
+  {name:"Portsmouth",country:"United Kingdom",lat:50.8198,lng:-1.0880},
+  {name:"York",country:"United Kingdom",lat:53.9590,lng:-1.0815},
+  {name:"Peterborough",country:"United Kingdom",lat:52.5739,lng:-0.2508},
+  {name:"Dundee",country:"United Kingdom",lat:56.4620,lng:-2.9707},
+  {name:"Lancaster",country:"United Kingdom",lat:54.0458,lng:-2.7980},
+  {name:"Oxford",country:"United Kingdom",lat:51.7520,lng:-1.2577},
+  {name:"Newport",country:"United Kingdom",lat:51.5877,lng:-2.9984},
+  {name:"Preston",country:"United Kingdom",lat:53.7632,lng:-2.7044},
+  {name:"Norwich",country:"United Kingdom",lat:52.6310,lng:1.2970},
+  {name:"Chester",country:"United Kingdom",lat:53.1934,lng:-2.8931},
+  {name:"Cambridge",country:"United Kingdom",lat:52.2053,lng:0.1218},
+  {name:"Exeter",country:"United Kingdom",lat:50.7184,lng:-3.5339},
+  {name:"Carlisle",country:"United Kingdom",lat:54.8925,lng:-2.9329},
+  {name:"Gloucester",country:"United Kingdom",lat:51.8642,lng:-2.2382},
+  {name:"Winchester",country:"United Kingdom",lat:51.0604,lng:-1.3168},
+  {name:"Inverness",country:"United Kingdom",lat:57.4778,lng:-4.2247},
+   
+
+
 
    //========================================== ASIA===================================================#####
    // Afghanistan
@@ -684,7 +1088,10 @@ const CITIES = [
   {name:"Taiz",country:"Yemen",lat:13.5795,lng:44.0205},
 
 
-//Oceania######
+   
+
+
+//==============================================================Oceania===============================================================######
    
 // Australia (Major Cities & Regional Centres)
   {name:"Sydney",country:"Australia",lat:-33.8688,lng:151.2093},
