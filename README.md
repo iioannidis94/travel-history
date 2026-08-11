@@ -9,7 +9,8 @@ An interactive world map to track every country and city you've visited — depl
 | 🌍 World map | Interactive dark-themed map (CartoDB Dark tiles via Leaflet.js) |
 | 🖱️ Click to mark | Click any country or city dot to mark/unmark as visited |
 | 🔍 Search bar | Search for any country or city with autocomplete |
-| 🎨 Visual highlights | Visited countries glow blue; visited cities pulse amber |
+| 🎨 Visual highlights | Visited countries glow blue, countries with visited cities tint green, and cities pulse amber |
+| 🏷️ Smart labels | Country and city names appear progressively as you zoom in |
 | 📊 Stats | Live counter of visited countries & cities |
 | 📋 Side panel | Scrollable list of all visited places with quick-remove buttons |
 | 💾 Local storage | Data persists in the browser automatically |

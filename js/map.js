@@ -10,6 +10,14 @@ const map = L.map('map', {
   zoomControl: true,
 });
 
+map.createPane('countryLabels');
+map.getPane('countryLabels').style.zIndex = 610;
+map.getPane('countryLabels').style.pointerEvents = 'none';
+
+map.createPane('cityLabels');
+map.getPane('cityLabels').style.zIndex = 620;
+map.getPane('cityLabels').style.pointerEvents = 'none';
+
 // Dark tile layer
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; <a href="https://carto.com/">CartoDB</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
@@ -21,15 +29,38 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
 
 let geoLayer = null;
 const GEOJSON_URL = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
+const countryLabelLayer = L.layerGroup().addTo(map);
+const cityLabelLayer = L.layerGroup().addTo(map);
+let countryLabelData = [];
+
+const cityOrderByCountry = new Map();
+const cityLabelData = CITIES.map((city, index) => {
+  const rankInCountry = (cityOrderByCountry.get(city.country) || 0) + 1;
+  cityOrderByCountry.set(city.country, rankInCountry);
+  return { ...city, index, rankInCountry };
+});
+
+function hasVisitedCityInCountry(name) {
+  for (const city of visitedCities.values()) {
+    if (city.country === name) return true;
+  }
+  return false;
+}
+
+function getCountryVisualState(name) {
+  if (visitedCountries.has(name)) return 'visited';
+  if (hasVisitedCityInCountry(name)) return 'city-visited';
+  return 'default';
+}
 
 function countryStyle(feature) {
-  const name    = feature.properties.ADMIN;
-  const visited = visitedCountries.has(name);
+  const name = feature.properties.ADMIN;
+  const state = getCountryVisualState(name);
   return {
-    fillColor:   visited ? '#3b82f6' : '#1e3248',
-    fillOpacity: visited ? 0.65      : 0.35,
-    color:       visited ? '#7ec8e3' : '#2a3a50',
-    weight:      visited ? 1.5       : 0.5,
+    fillColor: state === 'visited' ? '#3b82f6' : state === 'city-visited' ? '#34d399' : '#1e3248',
+    fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.48 : 0.35,
+    color: state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#86efac' : '#2a3a50',
+    weight: state === 'default' ? 0.5 : 1.3,
   };
 }
 
@@ -37,9 +68,11 @@ function onEachCountry(feature, layer) {
   const name = feature.properties.ADMIN;
   layer.on({
     mouseover(e) {
-      if (!visitedCountries.has(name)) {
-        e.target.setStyle({ fillOpacity: 0.55, fillColor: '#254d75' });
-      }
+      const state = getCountryVisualState(name);
+      e.target.setStyle({
+        fillOpacity: state === 'visited' ? 0.78 : state === 'city-visited' ? 0.62 : 0.55,
+        fillColor: state === 'visited' ? '#60a5fa' : state === 'city-visited' ? '#6ee7b7' : '#254d75',
+      });
     },
     mouseout(e) {
       geoLayer.resetStyle(e.target);
@@ -64,6 +97,22 @@ fetch(GEOJSON_URL)
       style: countryStyle,
       onEachFeature: onEachCountry,
     }).addTo(map);
+    countryLabelData = [];
+    geoLayer.eachLayer(layer => {
+      const feature = layer.feature;
+      if (!feature || !feature.properties || !feature.properties.ADMIN) return;
+      const bounds = layer.getBounds();
+      const center = bounds.getCenter();
+      const width = Math.abs(bounds.getEast() - bounds.getWest());
+      const height = Math.abs(bounds.getNorth() - bounds.getSouth());
+      const area = width * height * Math.max(0.2, Math.cos(center.lat * Math.PI / 180));
+      countryLabelData.push({
+        name: feature.properties.ADMIN,
+        center,
+        area,
+      });
+    });
+    renderLabels();
   })
   .catch(() => showToast('⚠️ Could not load country borders', '#ef4444'));
 
@@ -114,9 +163,130 @@ function renderCityMarkers() {
     marker.addTo(map);
     cityMarkers.set(key, marker);
   });
+
+  renderLabels();
 }
 
 function cityKey(city) { return `${city.name}, ${city.country}`; }
+
+function getCountryLabelLimit(zoom) {
+  if (zoom <= 2) return 18;
+  if (zoom <= 3) return 28;
+  if (zoom <= 4) return 45;
+  if (zoom <= 5) return 70;
+  return 110;
+}
+
+function getCountryLabelSpacing(zoom) {
+  if (zoom <= 2) return 88;
+  if (zoom <= 4) return 72;
+  return 60;
+}
+
+function getCityLabelLimit(zoom) {
+  if (zoom <= 2) return 10;
+  if (zoom <= 3) return 16;
+  if (zoom <= 4) return 24;
+  if (zoom <= 5) return 36;
+  if (zoom <= 6) return 54;
+  return 90;
+}
+
+function getCityLabelSpacing(zoom) {
+  if (zoom <= 2) return 66;
+  if (zoom <= 4) return 54;
+  return 42;
+}
+
+function getMaxCityRank(zoom) {
+  if (zoom <= 2) return 1;
+  if (zoom <= 4) return 2;
+  if (zoom <= 5) return 3;
+  if (zoom <= 6) return 4;
+  return Number.POSITIVE_INFINITY;
+}
+
+function addLabelMarker(layer, latlng, pane, className, text) {
+  L.marker(latlng, {
+    interactive: false,
+    keyboard: false,
+    pane,
+    icon: L.divIcon({
+      className: '',
+      iconSize: [0, 0],
+      iconAnchor: [0, 0],
+      html: `<div class="${className}">${esc(text)}</div>`,
+    }),
+  }).addTo(layer);
+}
+
+function keepSeparatedLabels(candidates, minDistance) {
+  const accepted = [];
+  const points = [];
+
+  candidates.forEach(candidate => {
+    const point = map.latLngToContainerPoint(candidate.latlng);
+    const crowded = points.some(existing => point.distanceTo(existing) < minDistance);
+    if (crowded) return;
+    points.push(point);
+    accepted.push(candidate);
+  });
+
+  return accepted;
+}
+
+function renderCountryLabels(zoom, bounds) {
+  countryLabelLayer.clearLayers();
+  if (!countryLabelData.length) return;
+
+  const candidates = countryLabelData
+    .filter(country => bounds.contains(country.center))
+    .sort((a, b) => {
+      const stateA = getCountryVisualState(a.name);
+      const stateB = getCountryVisualState(b.name);
+      const stateScoreA = stateA === 'visited' ? 0 : stateA === 'city-visited' ? 1 : 2;
+      const stateScoreB = stateB === 'visited' ? 0 : stateB === 'city-visited' ? 1 : 2;
+      return stateScoreA - stateScoreB || b.area - a.area || a.name.localeCompare(b.name);
+    })
+    .slice(0, getCountryLabelLimit(zoom))
+    .map(country => ({ latlng: country.center, data: country }));
+
+  keepSeparatedLabels(candidates, getCountryLabelSpacing(zoom)).forEach(({ data }) => {
+    const state = getCountryVisualState(data.name);
+    const className = `map-label map-label-country ${state !== 'default' ? 'is-highlighted' : ''}`;
+    addLabelMarker(countryLabelLayer, data.center, 'countryLabels', className, data.name);
+  });
+}
+
+function renderCityLabels(zoom, bounds) {
+  cityLabelLayer.clearLayers();
+
+  const candidates = cityLabelData
+    .filter(city => city.rankInCountry <= getMaxCityRank(zoom))
+    .filter(city => bounds.contains([city.lat, city.lng]))
+    .sort((a, b) => {
+      const visitedA = visitedCities.has(cityKey(a));
+      const visitedB = visitedCities.has(cityKey(b));
+      return Number(visitedB) - Number(visitedA) || a.rankInCountry - b.rankInCountry || a.index - b.index;
+    })
+    .slice(0, getCityLabelLimit(zoom))
+    .map(city => ({ latlng: L.latLng(city.lat, city.lng), data: city }));
+
+  keepSeparatedLabels(candidates, getCityLabelSpacing(zoom)).forEach(({ data, latlng }) => {
+    const visited = visitedCities.has(cityKey(data));
+    const className = `map-label map-label-city ${visited ? 'is-visited' : ''}`;
+    addLabelMarker(cityLabelLayer, latlng, 'cityLabels', className, data.name);
+  });
+}
+
+function renderLabels() {
+  const zoom = map.getZoom();
+  const bounds = map.getBounds().pad(0.15);
+  renderCountryLabels(zoom, bounds);
+  renderCityLabels(zoom, bounds);
+}
+
+map.on('moveend zoomend resize', renderLabels);
 
 /* ── Refresh the whole map view ── */
 
