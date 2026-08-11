@@ -5,7 +5,7 @@
 
 const CITIES = [
 
-   //EUROPE#######
+   //================EUROPE========================================#######
   // Albania
   {name:"Tirana",country:"Albania",lat:41.3275,lng:19.8189},
   {name:"Durrës",country:"Albania",lat:41.3246,lng:19.4558},
@@ -376,6 +376,9 @@ const CITIES = [
   // Vatican City
   {name:"Vatican City",country:"Vatican City",lat:41.9029,lng:12.4534},
 
+
+
+   //========================================== ASIA===================================================#####
    // Afghanistan
   {name:"Kabul",country:"Afghanistan",lat:34.5553,lng:69.2075},
   {name:"Kandahar",country:"Afghanistan",lat:31.6289,lng:65.7372},
@@ -386,7 +389,7 @@ const CITIES = [
   {name:"Manama",country:"Bahrain",lat:26.2235,lng:50.5876},
 
 
-   // ASIA#####
+   
   // Bangladesh
   {name:"Dhaka",country:"Bangladesh",lat:23.8103,lng:90.4125},
   {name:"Chittagong",country:"Bangladesh",lat:22.3569,lng:91.7832},
