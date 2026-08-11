@@ -29,6 +29,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
 /* ── Country GeoJSON ── */
 
 let geoLayer = null;
+// ΔΙΟΡΘΩΣΗ: Αλλάξαμε το "master" σε "main" για να φορτώνει σωστά το αρχείο
 const GEOJSON_URL = 'https://raw.githubusercontent.com/datasets/geo-countries/main/data/countries.geojson';
 const countryLabelLayer = L.layerGroup().addTo(map);
 const cityLabelLayer = L.layerGroup().addTo(map);
@@ -41,9 +42,16 @@ const cityLabelData = CITIES.map((city, index) => {
   return { ...city, index, rankInCountry };
 });
 
-function hasVisitedCityInCountry(name) {
+// ΕΞΥΠΝΟΣ ΕΛΕΓΧΟΣ: Ελέγχει αν έχουμε επισκεφτεί πόλη στη συγκεκριμένη χώρα (με ασφαλή αντιστοίχιση)
+function hasVisitedCityInCountry(geoCountryName) {
+  const normalize = str => str.toLowerCase().replace(/[^a-z]/g, '');
+  const target = normalize(geoCountryName);
+
   for (const [key, city] of visitedCities.entries()) {
-    if (city.country.toLowerCase() === name.toLowerCase()) return true;
+    const cityCountry = normalize(city.country);
+    if (cityCountry === target || cityCountry.includes(target) || target.includes(cityCountry)) {
+      return true;
+    }
   }
   return false;
 }
@@ -58,9 +66,8 @@ function countryStyle(feature) {
   const name = feature.properties.ADMIN;
   const state = getCountryVisualState(name);
   return {
-    // Εδώ ορίζεται το χρώμα: Μπλε αν είναι visited η χώρα, Απαλό Πράσινο (#34d399) αν έχεις πάει σε πόλη, Σκοτεινό αν είναι άψογη
     fillColor: state === 'visited' ? '#3b82f6' : state === 'city-visited' ? '#34d399' : '#1e3248',
-    fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.45 : 0.35,
+    fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.48 : 0.35,
     color: state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#6ee7b7' : '#2a3a50',
     weight: state === 'default' ? 0.5 : 1.3,
   };
@@ -320,7 +327,6 @@ map.on('moveend zoomend resize', () => {
 
 function refreshMap() {
   if (geoLayer) {
-    // Ενημερώνει τα χρώματα όλων των χωρών δυναμικά στον χάρτη
     geoLayer.setStyle(countryStyle);
   }
   renderCityMarkers();
