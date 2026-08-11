@@ -135,6 +135,11 @@ body {
   z-index: 1;
 }
 
+/* ZERO-LAG ZOOM: Κρύβει ακαριαία τις unvisited πόλεις στο zoom out */
+.hide-unvisited-cities .city-marker-unvisited {
+  display: none !important;
+}
+
 .map-label {
   pointer-events: none;
   white-space: nowrap;
