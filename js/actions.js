@@ -17,6 +17,7 @@ function addCountry(name) {
   updateStats();
   renderPanel();
   showToast(`✈️ ${name} added!`);
+  document.getElementById('action-menu').classList.remove('open');
 }
 
 function removeCountry(name) {
@@ -27,6 +28,7 @@ function removeCountry(name) {
   updateStats();
   renderPanel();
   showToast(`🗑 ${name} removed`, '#ef4444');
+  document.getElementById('action-menu').classList.remove('open');
 }
 
 function addCityByKey(key) {
@@ -62,6 +64,7 @@ function clearAll() {
   updateStats();
   renderPanel();
   showToast('🗑 All cleared', '#ef4444');
+  document.getElementById('action-menu').classList.remove('open');
 }
 
 /* ── Stats ── */
@@ -70,6 +73,21 @@ function updateStats() {
   document.getElementById('stat-countries').textContent = visitedCountries.size;
   document.getElementById('stat-cities').textContent    = visitedCities.size;
 }
+
+/* ── Mobile action menu ── */
+
+function toggleMenu() {
+  document.getElementById('action-menu').classList.toggle('open');
+}
+
+// Close the menu when tapping outside of it
+document.addEventListener('click', e => {
+  const menu   = document.getElementById('action-menu');
+  const toggle = document.getElementById('menu-toggle');
+  if (menu && toggle && !menu.contains(e.target) && !toggle.contains(e.target)) {
+    menu.classList.remove('open');
+  }
+});
 
 /* ── Side panel ── */
 

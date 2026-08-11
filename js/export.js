@@ -5,6 +5,7 @@
 /* ── JSON ── */
 
 function exportJSON() {
+  document.getElementById('action-menu').classList.remove('open');
   const data = {
     version: 1,
     exportedAt: new Date().toISOString(),
@@ -48,6 +49,7 @@ function importJSON(event) {
 let capturedDataURL = null;
 
 function openExportPNG() {
+  document.getElementById('action-menu').classList.remove('open');
   capturedDataURL = null;
   document.getElementById('export-preview').style.display = 'none';
   document.getElementById('download-btn').style.display   = 'none';

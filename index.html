@@ -32,10 +32,13 @@
     <span>🏙️ <strong id="stat-cities">0</strong> cities</span>
   </div>
 
-  <button class="btn btn-yellow" onclick="exportJSON()">⬇ Export JSON</button>
-  <button class="btn btn-blue" onclick="document.getElementById('file-import').click()">⬆ Import JSON</button>
-  <button class="btn btn-teal" onclick="openExportPNG()">🖼 Export PNG</button>
-  <button class="btn btn-red" onclick="clearAll()">🗑 Clear All</button>
+  <button class="btn btn-ghost" id="menu-toggle" onclick="toggleMenu()" title="More actions">⋯</button>
+  <div id="action-menu">
+    <button class="btn btn-yellow" onclick="exportJSON()">⬇ Export JSON</button>
+    <button class="btn btn-blue" onclick="document.getElementById('file-import').click()">⬆ Import JSON</button>
+    <button class="btn btn-teal" onclick="openExportPNG()">🖼 Export PNG</button>
+    <button class="btn btn-red" onclick="clearAll()">🗑 Clear All</button>
+  </div>
   <input type="file" id="file-import" accept=".json" onchange="importJSON(event)" />
 </div>
 

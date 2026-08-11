@@ -314,3 +314,148 @@ body {
   display: none;
 }
 .export-btns { display: flex; gap: 10px; justify-content: center; }
+
+/* ── MOBILE MENU TOGGLE ── */
+/* Hidden on desktop – shown only via media query */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #2a3a50;
+  color: #7ec8e3;
+  font-size: 1.2rem;
+  padding: 4px 10px;
+  display: none;
+}
+
+#action-menu {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── RESPONSIVE / MOBILE ── */
+@media (max-width: 600px) {
+  /* Use dynamic viewport height so the address bar doesn't steal space */
+  body {
+    height: 100dvh;
+    height: 100vh; /* fallback for browsers without dvh */
+  }
+
+  /* Compact topbar: title + search on one row, menu button */
+  #topbar {
+    padding: 8px 10px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+  }
+
+  #topbar h1 {
+    font-size: 1rem;
+    margin-right: 0;
+    white-space: nowrap;
+  }
+
+  #search-wrapper {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+  }
+
+  #stats {
+    display: none; /* hidden on mobile to save space */
+  }
+
+  /* Show the ⋯ hamburger button */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 6px 10px;
+  }
+
+  /* Action menu: hidden by default, drops down below topbar */
+  #action-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #162030;
+    border: 1px solid #2a3a50;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 10px;
+    gap: 8px;
+    flex-direction: column;
+    z-index: 1100;
+    min-width: 180px;
+  }
+  #action-menu.open {
+    display: flex;
+  }
+  #action-menu .btn {
+    width: 100%;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  /* Larger touch targets for popup buttons */
+  .popup-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  /* Leaflet zoom controls: bigger for touch */
+  .leaflet-touch .leaflet-bar a {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 1.1rem;
+  }
+
+  /* Side panel: full width on mobile */
+  #panel {
+    width: 100%;
+    top: auto;
+    bottom: 0;
+    height: 55vh;
+    transform: translateY(100%);
+    border-left: none;
+    border-top: 1px solid #2a3a50;
+    border-radius: 14px 14px 0 0;
+  }
+  #panel.open {
+    transform: translateY(0);
+  }
+
+  /* Panel toggle: bottom-right FAB */
+  #panel-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 16px;
+    top: auto;
+    writing-mode: horizontal-tb;
+    border-radius: 22px;
+    border: 1px solid #2a3a50;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    z-index: 820;
+    background: #162030;
+    box-shadow: 0 4px 14px rgba(0,0,0,.5);
+  }
+
+  /* Legend: compact and repositioned above the FAB */
+  #legend {
+    bottom: 70px;
+    left: 8px;
+    font-size: 0.72rem;
+    padding: 6px 10px;
+    line-height: 1.6;
+  }
+
+  /* Toast: slightly higher so it clears the FAB */
+  #toast {
+    bottom: 80px;
+  }
+}
