@@ -30,7 +30,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
 
 let geoLayer = null;
 // ΔΙΟΡΘΩΣΗ: Αλλάξαμε το "master" σε "main" για να φορτώνει σωστά το αρχείο
-const GEOJSON_URL = 'https://raw.githubusercontent.com/datasets/geo-countries/main/data/countries.geojson';
+const GEOJSON_URL = 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_0_countries.geojson';
 const countryLabelLayer = L.layerGroup().addTo(map);
 const cityLabelLayer = L.layerGroup().addTo(map);
 let countryLabelData = [];
