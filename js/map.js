@@ -129,15 +129,6 @@ fetch(GEOJSON_URL)
   .catch(() => showToast('⚠️ Could not load country borders', '#ef4444'));
 
 
-/* ── CSS Style Injection για Zero-Lag στο Zoom ── */
-const style = document.createElement('style');
-style.innerHTML = `
-  .hide-unvisited-cities .city-marker-unvisited {
-    display: none !important;
-  }
-`;
-document.head.appendChild(style);
-
 /* ── City markers ── */
 
 const cityMarkers = new Map(); // key → Leaflet marker
