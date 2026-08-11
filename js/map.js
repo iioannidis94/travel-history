@@ -136,17 +136,79 @@ function createCityIcon(visited) {
   });
 }
 
+/* ── City markers ── */
+
+const cityMarkers = new Map(); // key → Leaflet marker
+const VISIBLE_ZOOM_THRESHOLD = 5; // Από ποιο zoom και πάνω θα εμφανίζονται οι UNVISITED πόλεις (μπορείς να το αλλάξεις σε 4 ή 6)
+
+function createCityIcon(visited) {
+  return L.divIcon({
+    className: '',
+    html: `<div style="
+      width:${visited?12:7}px;height:${visited?12:7}px;
+      background:${visited?'#f59e0b':'#2a3a50'};
+      border:${visited?'2px solid #fff':'1px solid #3a4a5a'};
+      border-radius:50%;
+      box-shadow:${visited?'0 0 8px rgba(245,158,11,.8)':'none'};
+      transition:all .2s;
+    "></div>`,
+    iconSize:   [visited?12:7, visited?12:7],
+    iconAnchor: [visited?6:3.5, visited?6:3.5],
+  });
+}
+
 function renderCityMarkers() {
   cityMarkers.forEach(m => map.removeLayer(m));
   cityMarkers.clear();
 
   CITIES.forEach(city => {
-    const key     = cityKey(city);
+    const key    = cityKey(city);
     const visited = visitedCities.has(key);
     const marker  = L.marker([city.lat, city.lng], {
       icon:  createCityIcon(visited),
       title: city.name,
     });
+
+    marker.on('click', () => {
+      const v   = visitedCities.has(key);
+      const html = `
+        <div class="popup-title">🏙️ ${esc(city.name)}</div>
+        <div style="font-size:.8rem;color:#a0b4c8;margin-bottom:4px;">${esc(city.country)}</div>
+        ${v
+          ? `<button class="popup-btn popup-btn-remove" onclick="removeCityByKey('${esc(key)}')">✕ Remove</button>`
+          : `<button class="popup-btn popup-btn-add" onclick="addCityByKey('${esc(key)}')">✓ Mark as visited</button>`}
+      `;
+      L.popup().setLatLng([city.lat, city.lng]).setContent(html).openOn(map);
+    });
+
+    // Αποθηκεύουμε τον marker αλλά δεν τον βάζουμε αμέσως στον χάρτη
+    cityMarkers.set(key, marker);
+  });
+
+  renderLabels();
+  updateCityVisibility(); // Ελέγχουμε τι πρέπει να φαίνεται βάσει του τωρινού zoom
+}
+
+// ΝΕΑ ΣΥΝΑΡΤΗΣΗ: Ελέγχει την εμφάνιση των markers ανάλογα με το zoom
+function updateCityVisibility() {
+  const currentZoom = map.getZoom();
+  
+  cityMarkers.forEach((marker, key) => {
+    const isVisited = visitedCities.has(key);
+    
+    // Αν η πόλη είναι visited Ή το zoom είναι αρκετά μεγάλο, δείξε την
+    if (isVisited || currentZoom >= VISIBLE_ZOOM_THRESHOLD) {
+      if (!map.hasLayer(marker)) {
+        marker.addTo(map);
+      }
+    } else {
+      // Αλλιώς (είναι unvisited ΚΑΙ είμαστε σε μακρινό zoom) κρύψε την
+      if (map.hasLayer(marker)) {
+        marker.remove();
+      }
+    }
+  });
+}
 
     marker.on('click', () => {
       const v   = visitedCities.has(key);
@@ -264,6 +326,8 @@ function renderCityLabels(zoom, bounds) {
   const candidates = cityLabelData
     .filter(city => city.rankInCountry <= getMaxCityRank(zoom))
     .filter(city => bounds.contains([city.lat, city.lng]))
+    // ΝΕΟ ΦΙΛΤΡΟ: Να μην δείχνει όνομα πόλης αν το dot της είναι κρυμμένο!
+    .filter(city => visitedCities.has(cityKey(city)) || zoom >= VISIBLE_ZOOM_THRESHOLD)
     .sort((a, b) => {
       const visitedA = visitedCities.has(cityKey(a));
       const visitedB = visitedCities.has(cityKey(b));
@@ -286,7 +350,10 @@ function renderLabels() {
   renderCityLabels(zoom, bounds);
 }
 
-map.on('moveend zoomend resize', renderLabels);
+map.on('moveend zoomend resize', () => {
+  renderLabels();
+  updateCityVisibility(); // Καλείται σε κάθε κίνηση/zoom για να κρύψει ή να εμφανίσει τα dots
+});
 
 /* ── Refresh the whole map view ── */
 
