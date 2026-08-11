@@ -29,7 +29,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
 /* ── Country GeoJSON ── */
 
 let geoLayer = null;
-// ΔΙΟΡΘΩΣΗ: Αλλάξαμε το "master" σε "main" για να φορτώνει σωστά το αρχείο
+// Χρησιμοποιούμε σταθερό, γρήγορο CDN για να μην υπάρχουν ποτέ θέματα φόρτωσης
 const GEOJSON_URL = 'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_0_countries.geojson';
 const countryLabelLayer = L.layerGroup().addTo(map);
 const cityLabelLayer = L.layerGroup().addTo(map);
@@ -42,14 +42,17 @@ const cityLabelData = CITIES.map((city, index) => {
   return { ...city, index, rankInCountry };
 });
 
-// ΕΞΥΠΝΟΣ ΕΛΕΓΧΟΣ: Ελέγχει αν έχουμε επισκεφτεί πόλη στη συγκεκριμένη χώρα (με ασφαλή αντιστοίχιση)
+// ΕΞΥΠΝΗ ΣΥΝΑΡΤΗΣΗ: Κανονικοποίηση ονομάτων για ασφαλή αντιστοίχιση χωρών και πόλεων
+function normalizeName(name) {
+  return name ? name.toLowerCase().replace(/[^a-z]/g, '') : '';
+}
+
 function hasVisitedCityInCountry(geoCountryName) {
-  const normalize = str => str.toLowerCase().replace(/[^a-z]/g, '');
-  const target = normalize(geoCountryName);
+  const normGeoName = normalizeName(geoCountryName);
 
   for (const [key, city] of visitedCities.entries()) {
-    const cityCountry = normalize(city.country);
-    if (cityCountry === target || cityCountry.includes(target) || target.includes(cityCountry)) {
+    const normCityCountry = normalizeName(city.country);
+    if (normCityCountry === normGeoName || normCityCountry.includes(normGeoName) || normGeoName.includes(normCityCountry)) {
       return true;
     }
   }
@@ -67,7 +70,7 @@ function countryStyle(feature) {
   const state = getCountryVisualState(name);
   return {
     fillColor: state === 'visited' ? '#3b82f6' : state === 'city-visited' ? '#34d399' : '#1e3248',
-    fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.48 : 0.35,
+    fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.45 : 0.35,
     color: state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#6ee7b7' : '#2a3a50',
     weight: state === 'default' ? 0.5 : 1.3,
   };
@@ -327,7 +330,17 @@ map.on('moveend zoomend resize', () => {
 
 function refreshMap() {
   if (geoLayer) {
-    geoLayer.setStyle(countryStyle);
+    // Ενημερώνει δυναμικά τα χρώματα των χωρών στον χάρτη
+    geoLayer.eachLayer(layer => {
+      const name = layer.feature.properties.ADMIN;
+      const state = getCountryVisualState(name);
+      layer.setStyle({
+        fillColor: state === 'visited' ? '#3b82f6' : state === 'city-visited' ? '#34d399' : '#1e3248',
+        fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.45 : 0.35,
+        color: state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#6ee7b7' : '#2a3a50',
+        weight: state === 'default' ? 0.5 : 1.3,
+      });
+    });
   }
   renderCityMarkers();
 }
