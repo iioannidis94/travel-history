@@ -372,7 +372,7 @@ const CITIES = [
   {name:"Belfast",country:"United Kingdom",lat:54.5973,lng:-5.9301},
   
   // Vatican City
-  {name:"Vatican City",country:"Vatican City",lat:41.9029,lng:12.4534}
+  {name:"Vatican City",country:"Vatican City",lat:41.9029,lng:12.4534},
 
    // Afghanistan
   {name:"Kabul",country:"Afghanistan",lat:34.5553,lng:69.2075},
@@ -674,7 +674,7 @@ const CITIES = [
   // Yemen
   {name:"Sana'a",country:"Yemen",lat:15.3694,lng:44.1910},
   {name:"Aden",country:"Yemen",lat:12.7981,lng:45.0354},
-  {name:"Taiz",country:"Yemen",lat:13.5795,lng:44.0205}
+  {name:"Taiz",country:"Yemen",lat:13.5795,lng:44.0205},
 
 // Australia (Major Cities & Regional Centres)
   {name:"Sydney",country:"Australia",lat:-33.8688,lng:151.2093},
