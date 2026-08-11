@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Travel History</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- App styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- html2canvas for PNG export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <h1>✈️ Travel History</h1>
+
+  <div id="search-wrapper">
+    <input id="search-input" type="text" placeholder="Search country or city…" autocomplete="off" />
+    <span id="search-icon">🔍</span>
+    <div id="autocomplete-list" style="display:none;"></div>
+  </div>
+
+  <div id="stats">
+    <span>🌍 <strong id="stat-countries">0</strong> countries</span>
+    <span>🏙️ <strong id="stat-cities">0</strong> cities</span>
+  </div>
+
+  <button class="btn btn-ghost" id="menu-toggle" onclick="toggleMenu()" title="More actions">⋯</button>
+  <div id="action-menu">
+    <button class="btn btn-yellow" onclick="exportJSON()">⬇ Export JSON</button>
+    <button class="btn btn-blue" onclick="document.getElementById('file-import').click()">⬆ Import JSON</button>
+    <button class="btn btn-teal" onclick="openExportPNG()">🖼 Export PNG</button>
+    <button class="btn btn-red" onclick="clearAll()">🗑 Clear All</button>
+  </div>
+  <input type="file" id="file-import" accept=".json" onchange="importJSON(event)" />
+</div>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<!-- SIDE PANEL TOGGLE -->
+<button id="panel-toggle" onclick="togglePanel()" title="Toggle visited list">📋 Visited</button>
+
+<!-- SIDE PANEL -->
+<div id="panel">
+  <h2>Visited Places</h2>
+  <div id="panel-list"></div>
+</div>
+
+<!-- LEGEND -->
+<div id="legend">
+  <div class="row"><div class="swatch" style="background:#3b82f6;"></div> Visited Country</div>
+  <div class="row"><div class="swatch" style="background:#f59e0b;border-radius:50%;"></div> Visited City</div>
+  <div class="row"><div class="swatch" style="background:#1e3248;"></div> Unvisited</div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- EXPORT OVERLAY -->
+<div id="export-overlay">
+  <div id="export-box">
+    <h3>Export Map as PNG</h3>
+    <p>Capture the current map view as a PNG image you can use as a wallpaper.</p>
+    <img id="export-preview" alt="Map preview" />
+    <div class="export-btns">
+      <button class="btn btn-teal" id="capture-btn" onclick="captureMap()">📸 Capture</button>
+      <button class="btn btn-green" id="download-btn" onclick="downloadPNG()" style="display:none;">💾 Download</button>
+      <button class="btn btn-red" onclick="closeExport()">✕ Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- App scripts (order matters: data → toast → storage → actions → map → search → export → main) -->
+<script src="js/data.js"></script>
+<script src="js/toast.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/actions.js"></script>
+<script src="js/map.js"></script>
+<script src="js/search.js"></script>
+<script src="js/export.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
