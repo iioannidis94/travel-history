@@ -2,12 +2,22 @@
    MAP  –  Leaflet map setup, country GeoJSON layer, city markers
    ===================================================================== */
 
+// 1. Ορίζουμε τα όρια όλου του πλανήτη
+const worldBounds = [
+  [-90, -180], // Νοτιοδυτικό άκρο
+  [90, 180]    // Βορειοανατολικό άκρο
+];
+
 const map = L.map('map', {
   center: [20, 10],
   zoom: 2,
   minZoom: 2,
   maxZoom: 12,
   zoomControl: true,
+  // 2. Εφαρμόζουμε τα όρια για να μην χάνεται ο χρήστης
+  maxBounds: worldBounds,
+  maxBoundsViscosity: 1.0, // "Σκληρό" στοπ στα όρια
+  worldCopyJump: false // Αποτρέπει την πλοήγηση σε "κλώνους" του χάρτη
 });
 
 map.createPane('countryLabels');
@@ -23,6 +33,8 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
   attribution: '&copy; <a href="https://carto.com/">CartoDB</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
   subdomains: 'abcd',
   maxZoom: 19,
+  noWrap: true, // 3. Κόβει την ατελείωτη επανάληψη του χάρτη (tiles)
+  bounds: worldBounds
 }).addTo(map);
 
 /* ── Country GeoJSON ── */
@@ -116,6 +128,16 @@ fetch(GEOJSON_URL)
   })
   .catch(() => showToast('⚠️ Could not load country borders', '#ef4444'));
 
+
+/* ── CSS Style Injection για Zero-Lag στο Zoom ── */
+const style = document.createElement('style');
+style.innerHTML = `
+  .hide-unvisited-cities .city-marker-unvisited {
+    display: none !important;
+  }
+`;
+document.head.appendChild(style);
+
 /* ── City markers ── */
 
 const cityMarkers = new Map(); // key → Leaflet marker
@@ -123,7 +145,8 @@ const VISIBLE_ZOOM_THRESHOLD = 5; // Από ποιο zoom και πάνω θα �
 
 function createCityIcon(visited) {
   return L.divIcon({
-    className: '',
+    // Αναθέτουμε την κατάλληλη κλάση CSS για να την κρύβουμε μαζικά
+    className: visited ? 'city-marker-visited' : 'city-marker-unvisited',
     html: `<div style="
       width:${visited?12:7}px;height:${visited?12:7}px;
       background:${visited?'#f59e0b':'#2a3a50'};
@@ -161,6 +184,8 @@ function renderCityMarkers() {
       L.popup().setLatLng([city.lat, city.lng]).setContent(html).openOn(map);
     });
 
+    // Προσθέτουμε τα markers στον χάρτη μια και καλή! Το CSS θα τα κρύβει.
+    marker.addTo(map);
     cityMarkers.set(key, marker);
   });
 
@@ -168,25 +193,18 @@ function renderCityMarkers() {
   renderLabels();
 }
 
-// Ελέγχει την εμφάνιση των markers ανάλογα με το zoom
+// 4. Ελέγχει την εμφάνιση των markers (Ακαριαία, μέσω CSS class)
 function updateCityVisibility() {
   const currentZoom = map.getZoom();
+  const mapContainer = map.getContainer();
   
-  cityMarkers.forEach((marker, key) => {
-    const isVisited = visitedCities.has(key);
-    
-    // Αν η πόλη είναι visited Ή το zoom είναι αρκετά μεγάλο, δείξε την
-    if (isVisited || currentZoom >= VISIBLE_ZOOM_THRESHOLD) {
-      if (!map.hasLayer(marker)) {
-        marker.addTo(map);
-      }
-    } else {
-      // Αλλιώς κρύψε την
-      if (map.hasLayer(marker)) {
-        marker.remove();
-      }
-    }
-  });
+  if (currentZoom >= VISIBLE_ZOOM_THRESHOLD) {
+    // Zoom in: βγάλε την κλάση της απόκρυψης, δείξε τα όλα!
+    mapContainer.classList.remove('hide-unvisited-cities');
+  } else {
+    // Zoom out: βάλε την κλάση, κρύψε τα unvisited
+    mapContainer.classList.add('hide-unvisited-cities');
+  }
 }
 
 function cityKey(city) { return `${city.name}, ${city.country}`; }
