@@ -29,7 +29,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
 /* ── Country GeoJSON ── */
 
 let geoLayer = null;
-const GEOJSON_URL = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
+const GEOJSON_URL = 'https://raw.githubusercontent.com/datasets/geo-countries/main/data/countries.geojson';
 const countryLabelLayer = L.layerGroup().addTo(map);
 const cityLabelLayer = L.layerGroup().addTo(map);
 let countryLabelData = [];
