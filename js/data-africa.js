@@ -6,7 +6,7 @@
    ===================================================================== */
 
 const CITIES_AFRICA = [
-
+ 
   // Egypt
   {name:"Cairo",country:"Egypt",lat:30.0444,lng:31.2357},
   {name:"Alexandria",country:"Egypt",lat:31.2001,lng:29.9187},
