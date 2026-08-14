@@ -6,7 +6,7 @@
    ===================================================================== */
 
 const CITIES_NORTH_AMERICA = [
-
+ 
   // Canada (Extensive Regional & Northern)
   {name:"Surrey",country:"Canada",lat:49.1913,lng:-122.8490},
   {name:"Burnaby",country:"Canada",lat:49.2488,lng:-122.9805},
