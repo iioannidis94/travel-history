@@ -193,10 +193,68 @@ body {
 .popup-btn-add    { background: #22c55e; color: #fff; }
 .popup-btn-remove { background: #ef4444; color: #fff; }
 
+/* ── Google-Maps-style map controls (zoom, fullscreen, locate, scale) ── */
+.leaflet-bar,
+.leaflet-bar a {
+  background: #162030 !important;
+  border-color: #2a3a50 !important;
+  color: #7ec8e3 !important;
+}
+.leaflet-bar a {
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  font-size: 1.05rem;
+  border-bottom: 1px solid #2a3a50 !important;
+}
+.leaflet-bar a:hover { background: #1e3248 !important; }
+.leaflet-bar a.leaflet-disabled {
+  background: #101a26 !important;
+  color: #4a6482 !important;
+}
+.custom-map-btn a.locating {
+  animation: spinLocate 0.9s linear infinite;
+}
+@keyframes spinLocate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.leaflet-control-scale-line {
+  background: rgba(22,32,48,.88) !important;
+  border: 1px solid #2a3a50 !important;
+  border-top: none !important;
+  color: #a0b4c8 !important;
+  padding: 1px 6px !important;
+}
+
+.my-location-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #4285F4;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px rgba(66,133,244,.35);
+  position: relative;
+}
+.my-location-dot::after {
+  content: '';
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  background: rgba(66,133,244,.25);
+  animation: pulseLocate 2s infinite;
+}
+@keyframes pulseLocate {
+  0%   { transform: scale(0.5); opacity: 1; }
+  70%  { transform: scale(1.9); opacity: 0; }
+  100% { opacity: 0; }
+}
+
 /* ── LEGEND ── */
 #legend {
   position: absolute;
-  bottom: 26px;
+  bottom: 40px;
   left: 12px;
   background: rgba(22,32,48,.92);
   border: 1px solid #2a3a50;
@@ -447,6 +505,17 @@ body {
     height: 36px;
     line-height: 36px;
     font-size: 1.1rem;
+  }
+
+  /* Keep the stacked zoom/fullscreen/locate buttons clear of the
+     bottom-right "📋 Visited" FAB */
+  .leaflet-bottom.leaflet-right {
+    margin-bottom: 66px;
+  }
+
+  /* Scale bar takes up space better spent elsewhere on small screens */
+  .leaflet-control-scale {
+    display: none;
   }
 
   /* Side panel: full width on mobile */
