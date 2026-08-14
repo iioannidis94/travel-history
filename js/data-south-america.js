@@ -6,7 +6,7 @@
    ===================================================================== */
 
 const CITIES_SOUTH_AMERICA = [
-
+ 
   // Brazil
   {name:"São Paulo",country:"Brazil",lat:-23.5505,lng:-46.6333},
   {name:"Rio de Janeiro",country:"Brazil",lat:-22.9068,lng:-43.1729},
