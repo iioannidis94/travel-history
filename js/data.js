@@ -9,7 +9,7 @@
    IMPORTANT: in index.html, all data-*.js files must load BEFORE this
    file, which must itself load before toast.js/storage.js/etc.
    ===================================================================== */
-
+ 
 const CITIES = [
   ...CITIES_EUROPE,
   ...CITIES_ASIA,
