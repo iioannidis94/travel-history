@@ -6,7 +6,7 @@
    ===================================================================== */
 
 const CITIES_EUROPE = [
-
+ 
   // Albania
   {name:"Tirana",country:"Albania",lat:41.3275,lng:19.8189},
   {name:"Durrës",country:"Albania",lat:41.3246,lng:19.4558},
