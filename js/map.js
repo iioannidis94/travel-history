@@ -47,11 +47,40 @@ function normalizeName(name) {
   return name ? name.toLowerCase().replace(/[^a-z]/g, '') : '';
 }
 
+// Μερικές χώρες έχουν διαφορετικό "επίσημο" όνομα στο Natural-Earth geojson
+// (ADMIN) απ' ό,τι έχουμε γραμμένο στο data.js. Χαρτογραφούμε τα γνωστά cases
+// ώστε το ταίριασμα πόλης↔χώρας να δουλεύει σε κάθε περίπτωση.
+const COUNTRY_NAME_ALIASES = {
+  'capeverde': 'caboverde',
+  'ivorycoast': 'cotedivoire',
+  'czechrepublic': 'czechia',
+  'unitedstates': 'unitedstatesofamerica',
+  'russia': 'russianfederation',
+  'southkorea': 'republicofkorea',
+  'northkorea': 'democraticpeoplesrepublicofkorea',
+  'laos': 'laopeoplesdemocraticrepublic',
+  'syria': 'syrianarabrepublic',
+  'iran': 'iranislamicrepublicof',
+  'vietnam': 'vietnam',
+  'macedonia': 'northmacedonia',
+  'swaziland': 'eswatini',
+  'unitedrepublicoftanzania': 'tanzania',
+  'republicofthecongo': 'congo',
+  'democraticrepublicofthecongo': 'democraticrepublicofthecongo',
+  'burma': 'myanmar',
+  'capeverdeislands': 'caboverde',
+};
+
+function normalizeCountryName(name) {
+  const norm = normalizeName(name);
+  return COUNTRY_NAME_ALIASES[norm] || norm;
+}
+
 function hasVisitedCityInCountry(geoCountryName) {
-  const normGeoName = normalizeName(geoCountryName);
+  const normGeoName = normalizeCountryName(geoCountryName);
 
   for (const [key, city] of visitedCities.entries()) {
-    const normCityCountry = normalizeName(city.country);
+    const normCityCountry = normalizeCountryName(city.country);
     
     // Ακριβής ταύτιση ή αν η μία λέξη περιέχει την άλλη αλλά με αυστηρότερο έλεγχο
     if (normCityCountry === normGeoName || 
@@ -69,15 +98,21 @@ function getCountryVisualState(name) {
   return 'default';
 }
 
+// Μοναδική πηγή αλήθειας για το styling ανά κατάσταση χώρας — χρησιμοποιείται
+// τόσο στην αρχική φόρτωση όσο και στο refreshMap(), ώστε να μην ξαναφύγουν
+// ποτέ εκτός συγχρονισμού (αυτό ήταν το bug: το refreshMap είχε παλιά τιμή).
+function getCountryStyleForState(state) {
+  return {
+    fillColor:   state === 'visited' ? '#3b82f6' : state === 'city-visited' ? '#34d399' : '#1e3248',
+    fillOpacity: state === 'visited' ? 0.65      : state === 'city-visited' ? 0.45      : 0.35,
+    color:       state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#6ee7b7' : '#4a6482',
+    weight:      state === 'default' ? 1 : 1.3,
+  };
+}
+
 function countryStyle(feature) {
   const name = feature.properties.ADMIN;
-  const state = getCountryVisualState(name);
-  return {
-    fillColor: state === 'visited' ? '#3b82f6' : state === 'city-visited' ? '#34d399' : '#1e3248',
-    fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.45 : 0.35,
-    color: state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#6ee7b7' : '#4a6482',
-    weight: state === 'default' ? 1 : 1.3,
-  };
+  return getCountryStyleForState(getCountryVisualState(name));
 }
 
 function onEachCountry(feature, layer) {
@@ -343,13 +378,7 @@ function refreshMap() {
     // Ενημερώνει δυναμικά τα χρώματα των χωρών στον χάρτη
     geoLayer.eachLayer(layer => {
       const name = layer.feature.properties.ADMIN;
-      const state = getCountryVisualState(name);
-      layer.setStyle({
-        fillColor: state === 'visited' ? '#3b82f6' : state === 'city-visited' ? '#34d399' : '#1e3248',
-        fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.45 : 0.35,
-        color: state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#6ee7b7' : '#2a3a50',
-        weight: state === 'default' ? 0.5 : 1.3,
-      });
+      layer.setStyle(getCountryStyleForState(getCountryVisualState(name)));
     });
   }
   renderCityMarkers();
