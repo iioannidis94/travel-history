@@ -75,8 +75,8 @@ function countryStyle(feature) {
   return {
     fillColor: state === 'visited' ? '#3b82f6' : state === 'city-visited' ? '#34d399' : '#1e3248',
     fillOpacity: state === 'visited' ? 0.65 : state === 'city-visited' ? 0.45 : 0.35,
-    color: state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#6ee7b7' : '#2a3a50',
-    weight: state === 'default' ? 0.5 : 1.3,
+    color: state === 'visited' ? '#7ec8e3' : state === 'city-visited' ? '#6ee7b7' : '#4a6482',
+    weight: state === 'default' ? 1 : 1.3,
   };
 }
 
@@ -101,7 +101,14 @@ function onEachCountry(feature, layer) {
           ? `<button class="popup-btn popup-btn-remove" onclick="removeCountry('${esc(name)}')">✕ Remove</button>`
           : `<button class="popup-btn popup-btn-add" onclick="addCountry('${esc(name)}')">✓ Mark as visited</button>`}
       `;
-      L.popup().setLatLng(e.latlng).setContent(html).openOn(map);
+
+      // Zoom in and center on this country so its cities come into focus,
+      // then open the popup once the animation settles.
+      const bounds = e.target.getBounds();
+      map.flyToBounds(bounds, { maxZoom: 7, padding: [30, 30], duration: 0.6 });
+      map.once('moveend', () => {
+        L.popup().setLatLng(e.latlng).setContent(html).openOn(map);
+      });
     },
   });
 }
@@ -208,17 +215,16 @@ function updateCityVisibility() {
 function cityKey(city) { return `${city.name}, ${city.country}`; }
 
 function getCountryLabelLimit(zoom) {
-  if (zoom <= 2) return 18;
-  if (zoom <= 3) return 28;
-  if (zoom <= 4) return 45;
-  if (zoom <= 5) return 70;
-  return 110;
+  if (zoom <= 2) return 60;
+  if (zoom <= 3) return 100;
+  if (zoom <= 4) return 160;
+  return 250; // effectively all countries in the geojson
 }
 
 function getCountryLabelSpacing(zoom) {
-  if (zoom <= 2) return 88;
-  if (zoom <= 4) return 72;
-  return 60;
+  if (zoom <= 2) return 60;
+  if (zoom <= 4) return 48;
+  return 40;
 }
 
 function getCityLabelLimit(zoom) {
