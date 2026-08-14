@@ -47,6 +47,14 @@ function normalizeName(name) {
   return name ? name.toLowerCase().replace(/[^a-z]/g, '') : '';
 }
 
+// Το geojson CDN που χρησιμοποιούμε επιστρέφει τα properties με ΠΕΖΑ
+// ονόματα (π.χ. "admin") αντί για το συνηθισμένο "ADMIN" — γι' αυτό ποτέ
+// δεν έβρισκε όνομα χώρας. Δοκιμάζουμε όλες τις πιθανές παραλλαγές.
+function getFeatureCountryName(feature) {
+  const p = (feature && feature.properties) || {};
+  return p.ADMIN || p.admin || p.Admin || p.NAME || p.name || p.Name || '';
+}
+
 // Μερικές χώρες έχουν διαφορετικό "επίσημο" όνομα στο Natural-Earth geojson
 // (ADMIN) απ' ό,τι έχουμε γραμμένο στο data.js. Χαρτογραφούμε τα γνωστά cases
 // ώστε το ταίριασμα πόλης↔χώρας να δουλεύει σε κάθε περίπτωση.
@@ -111,12 +119,12 @@ function getCountryStyleForState(state) {
 }
 
 function countryStyle(feature) {
-  const name = feature.properties.ADMIN;
+  const name = getFeatureCountryName(feature);
   return getCountryStyleForState(getCountryVisualState(name));
 }
 
 function onEachCountry(feature, layer) {
-  const name = feature.properties.ADMIN;
+  const name = getFeatureCountryName(feature);
   layer.on({
     mouseover(e) {
       const state = getCountryVisualState(name);
@@ -158,14 +166,15 @@ fetch(GEOJSON_URL)
     countryLabelData = [];
     geoLayer.eachLayer(layer => {
       const feature = layer.feature;
-      if (!feature || !feature.properties || !feature.properties.ADMIN) return;
+      const name = getFeatureCountryName(feature);
+      if (!feature || !name) return;
       const bounds = layer.getBounds();
       const center = bounds.getCenter();
       const width = Math.abs(bounds.getEast() - bounds.getWest());
       const height = Math.abs(bounds.getNorth() - bounds.getSouth());
       const area = width * height * Math.max(0.2, Math.cos(center.lat * Math.PI / 180));
       countryLabelData.push({
-        name: feature.properties.ADMIN,
+        name,
         center,
         area,
       });
@@ -377,7 +386,7 @@ function refreshMap() {
   if (geoLayer) {
     // Ενημερώνει δυναμικά τα χρώματα των χωρών στον χάρτη
     geoLayer.eachLayer(layer => {
-      const name = layer.feature.properties.ADMIN;
+      const name = getFeatureCountryName(layer.feature);
       layer.setStyle(getCountryStyleForState(getCountryVisualState(name)));
     });
   }
