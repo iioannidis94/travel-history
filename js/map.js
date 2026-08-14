@@ -7,9 +7,16 @@ const map = L.map('map', {
   zoom: 2,
   minZoom: 2,
   maxZoom: 12,
-  zoomControl: true,
-  worldCopyJump: true 
+  zoomControl: false,      // we add our own, repositioned control below
+  zoomSnap: 0.5,           // finer zoom steps, feels smoother/less "jumpy"
+  zoomDelta: 0.5,
+  wheelPxPerZoomLevel: 90, // less scroll needed per zoom step, more like Google Maps
+  worldCopyJump: true
 });
+
+// Zoom buttons + scale bar, positioned Google-Maps-style
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+L.control.scale({ position: 'bottomleft', imperial: false, maxWidth: 120 }).addTo(map);
 
 map.createPane('countryLabels');
 map.getPane('countryLabels').style.zIndex = 610;
@@ -25,6 +32,97 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
   subdomains: 'abcd',
   maxZoom: 19
 }).addTo(map);
+
+/* ── Google-Maps-style controls: fullscreen + "find me" ── */
+
+const FullscreenControl = L.Control.extend({
+  options: { position: 'bottomright' },
+  onAdd() {
+    const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control custom-map-btn');
+    const btn = L.DomUtil.create('a', '', container);
+    btn.href = '#';
+    btn.title = 'Πλήρης οθόνη';
+    btn.innerHTML = '⛶';
+
+    const isFs = () => document.fullscreenElement || document.webkitFullscreenElement;
+    const sync = () => {
+      btn.innerHTML = isFs() ? '✕' : '⛶';
+      btn.title = isFs() ? 'Έξοδος πλήρους οθόνης' : 'Πλήρης οθόνη';
+    };
+
+    L.DomEvent.on(btn, 'click', L.DomEvent.stop).on(btn, 'click', () => {
+      const el = document.documentElement;
+      if (!isFs()) {
+        (el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen)?.call(el);
+      } else {
+        (document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen)?.call(document);
+      }
+    });
+    document.addEventListener('fullscreenchange', sync);
+    document.addEventListener('webkitfullscreenchange', sync);
+    return container;
+  },
+});
+map.addControl(new FullscreenControl());
+
+let locateMarker = null;
+let locateAccuracyCircle = null;
+
+const LocateControl = L.Control.extend({
+  options: { position: 'bottomright' },
+  onAdd() {
+    const container = L.DomUtil.create('div', 'leaflet-bar leaflet-control custom-map-btn');
+    const btn = L.DomUtil.create('a', '', container);
+    btn.href = '#';
+    btn.title = 'Βρες την τοποθεσία μου';
+    btn.innerHTML = '⌖';
+
+    L.DomEvent.on(btn, 'click', L.DomEvent.stop).on(btn, 'click', () => {
+      if (!navigator.geolocation) {
+        showToast('⚠️ Ο browser δεν υποστηρίζει geolocation', '#ef4444');
+        return;
+      }
+      btn.classList.add('locating');
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          btn.classList.remove('locating');
+          const { latitude, longitude, accuracy } = pos.coords;
+          const latlng = [latitude, longitude];
+
+          if (locateMarker) map.removeLayer(locateMarker);
+          if (locateAccuracyCircle) map.removeLayer(locateAccuracyCircle);
+
+          locateAccuracyCircle = L.circle(latlng, {
+            radius: accuracy,
+            color: '#4285F4',
+            fillColor: '#4285F4',
+            fillOpacity: 0.12,
+            weight: 1,
+          }).addTo(map);
+
+          locateMarker = L.marker(latlng, {
+            icon: L.divIcon({
+              className: '',
+              html: '<div class="my-location-dot"></div>',
+              iconSize: [18, 18],
+              iconAnchor: [9, 9],
+            }),
+            zIndexOffset: 1000,
+          }).addTo(map);
+
+          map.flyTo(latlng, Math.max(map.getZoom(), 11), { duration: 0.8 });
+        },
+        () => {
+          btn.classList.remove('locating');
+          showToast('⚠️ Δεν βρέθηκε η τοποθεσία σου', '#ef4444');
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    });
+    return container;
+  },
+});
+map.addControl(new LocateControl());
 
 /* ── Country GeoJSON ── */
 
